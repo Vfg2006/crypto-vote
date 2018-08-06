@@ -1,1 +1,41 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    color: #555;
+}
+  
+.box-header {
+    color: inherit;
+}
+
+.box-body dl {
+    font-size: 18px;
+  }
+
+.main-header {
+    background-color: #162230;
+}
+
+.logo {
+    height: 50px;
+    width: 100px !important;
+    margin-right: 10px;
+    float: left;
+}
+/*Jumbotrons*/
+
+.jumbotron {
+    background-color: #fff;
+    text-align:center;
+  }
+  .jumbotron h2 {
+    font-size: 40px;
+  }
+  
+  .welcome-jumbotron h1 {
+    margin-bottom: 60px;
+  }
+  
+  .welcome-jumbotron p {
+    margin-bottom: 60px;
+    font-size: 30px;
+  }
