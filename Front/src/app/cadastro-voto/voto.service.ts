@@ -21,7 +21,7 @@ export class VotoService {
         console.log("VOTO SERVICE: " + numero)
         console.log(`${this.API}/candidatos/${numero}`)
 
-        return this.http.get(`${this.API}/candidatos/${numero}`)
+        return this.http.get(`${this.API}/candidatos?numero=${numero}`)
             // .map(response => response.json())
             .catch(ErrorHandler.handleError)
     }

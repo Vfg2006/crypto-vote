@@ -1,0 +1,38 @@
+<h2 class="text-center">Prefeito</h2>
+
+
+<form [formGroup]="confirmaCandidatoForm" novalidate>
+
+  <!-- <div class="row">
+    <div class="col-xs-2 col-sm-2">
+      <input class="form-control input-lg" formControlName="primeiroNumero" autocomplete="off">
+    </div>
+
+    <div class="col-xs-2 col-sm-2">
+      <input class="form-control input-lg" formControlName="segundoNumero" autocomplete="off">
+    </div>
+  </div> -->
+  <div class="formGroup box-imgs">
+    <div class="row">
+      <img class="foto-principal" src="../../assets/img/avatar1.png">
+    </div>
+
+    <div class="row label-foto-principal">
+      <label>Prefeito</label>
+    </div>
+
+    <div class="row">
+      <img class="foto-vice" src="../../assets/img/avatar2.png">
+    </div>
+
+    <div class="row label-foto-vice">
+      <label>Vice-Prefeita</label>
+    </div>
+  </div>
+
+  <div class="row box-btn-voto">
+    <button class="btn btn-default btn-lg btn-voto" (click)="buscarCandidato()">Branco</button>
+    <button class="btn btn-danger btn-lg btn-voto" (click)="buscarCandidato()">Corrige</button>
+    <button class="btn btn-success btn-lg btn-voto" (click)="buscarCandidato()">Confirma</button>
+  </div>
+</form>

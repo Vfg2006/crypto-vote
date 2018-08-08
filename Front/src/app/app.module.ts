@@ -13,7 +13,8 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component'
 import { HomeComponent } from './home/home.component';
 import { CadastroVotoComponent } from './cadastro-voto/cadastro-voto.component';
-import { BuscaCandidatoComponent } from './cadastro-voto/busca-candidato/busca-candidato.component'
+import { BuscaCandidatoComponent } from './cadastro-voto/busca-candidato/busca-candidato.component';
+import { ConfirmaCandidatoComponent } from './cadastro-voto/confirma-candidato/confirma-candidato.component'
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { BuscaCandidatoComponent } from './cadastro-voto/busca-candidato/busca-c
     HeaderComponent,
     HomeComponent,
     CadastroVotoComponent,
-    BuscaCandidatoComponent
+    BuscaCandidatoComponent,
+    ConfirmaCandidatoComponent
   ],
   imports: [
     BrowserModule,

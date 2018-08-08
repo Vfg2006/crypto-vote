@@ -14,8 +14,12 @@
 
     </div>
 
-    <div class="box-body">
-      <vg-busca-candidato></vg-busca-candidato>
+    <div class="box-body" *ngIf="!candidato">
+      <vg-busca-candidato (candidato)="getCandidato($event)"></vg-busca-candidato>
+    </div>
+
+    <div class="box-body" *ngIf="candidato">
+      <vg-confirma-candidato  [recebeCandidato]="candidato"></vg-confirma-candidato>
     </div>
   </div>
 </section>

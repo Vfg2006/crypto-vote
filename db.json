@@ -4,21 +4,21 @@
 		"numero": 10,
 		"nome": "João da Silva",
 		"partido": "PSC",
-		"vice-presidente": "Manoel Carlos",
+		"vice": "Manoel Carlos",
 		"cargo": "Prefeito"
 	},
 	{
 		"numero": 20,
 		"nome": "Maria de Souza",
 		"partido": "PSB",
-		"vice-presidente": "José Carlos",
+		"vice": "José Carlos",
 		"cargo": "Prefeito"
 	},
 	{
 		"numero": 30,
 		"nome": "Frederico Nogueira",
 		"partido": "PSDB",
-		"vice-presidente": "Paulo Silva",
+		"vice": "Paulo Silva",
 		"cargo": "Prefeito"
 	}
 	]

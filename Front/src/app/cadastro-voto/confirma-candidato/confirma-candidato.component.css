@@ -1,0 +1,42 @@
+.box-imgs {
+    margin-left: 30px;
+}
+
+.foto-principal {
+    width: 280px;
+    border: solid 1px
+}
+
+.foto-vice {
+    width: 150px;
+    border: solid 1px
+}
+
+.label-foto-principal {
+    width: 280px;
+    text-align: center;
+    border-style: solid;
+    border-width: 0px 1px 1px 1px;
+    margin-bottom: 1px;
+}
+
+.label-foto-vice {
+    width: 150px;
+    text-align: center;
+    border-style: solid;
+    border-width: 0px 1px 1px 1px;
+}
+
+.box-btn-voto {
+    justify-content: center;
+    display: flex;
+    margin-top: 20px;
+}
+
+.btn-voto {
+    font-weight: bold;
+    color: black;
+    margin-right: 10px;
+}
+
+

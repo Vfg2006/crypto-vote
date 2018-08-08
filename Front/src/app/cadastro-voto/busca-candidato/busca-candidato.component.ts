@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter  } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { VotoService } from '../voto.service';
+import { Candidato } from '../../candidato.model';
 
 @Component({
   selector: 'vg-busca-candidato',
@@ -10,6 +11,8 @@ import { VotoService } from '../voto.service';
 export class BuscaCandidatoComponent implements OnInit {
 
   buscaCandidatoForm: FormGroup
+
+  @Output() candidato = new EventEmitter();
 
   constructor(private formbuilder: FormBuilder, private votoService: VotoService) { }
 
@@ -29,6 +32,14 @@ export class BuscaCandidatoComponent implements OnInit {
     this.votoService.candidatoBy(numero).subscribe(
       (data) => {
         console.log(data);
+
+        this.candidato.emit({
+          numero: data[0].numero,
+          nome: data[0].nome,
+          partido: data[0].partido,
+          vice: data[0].vice,
+          cargo: data[0].cargo
+        })
       },
       (error) => {
         console.log(error)
