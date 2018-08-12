@@ -1,25 +1,40 @@
 {
 	"candidatos": [
 	{
+		"contaBlockchain": "0xb2ed8ebb091c17c21b4c6cd1ef768b66c31d15bc",
 		"numero": 10,
 		"nome": "João da Silva",
 		"partido": "PSC",
-		"vice": "Manoel Carlos",
-		"cargo": "Prefeito"
+		"cargo": "Prefeito",
+		"fotoPath": "../../assets/img/avatar1.png",
+		"vice": {
+			"nome":"Manoela Costa",
+			"fotoPath": "../../assets/img/avatar2.png"
+		}
 	},
 	{
+		"contaBlockchain": "0x0751f545185fae1a882c311fcc3e8c00fb206fba",
 		"numero": 20,
 		"nome": "Maria de Souza",
 		"partido": "PSB",
-		"vice": "José Carlos",
-		"cargo": "Prefeito"
+		"cargo": "Prefeito",
+		"fotoPath": "",
+		"vice": {
+			"nome": "José Carlos",
+			"fotoPath": ""
+		}
 	},
 	{
+		"contaBlockchain": "0x98544babd863f5ce635453728aee5e1e22362782",
 		"numero": 30,
 		"nome": "Frederico Nogueira",
 		"partido": "PSDB",
-		"vice": "Paulo Silva",
-		"cargo": "Prefeito"
+		"cargo": "Prefeito",
+		"fotoPath": "",
+		"vice": {
+			"nome": "Paulo Silva",
+			"fotoPath": ""
+		}
 	}
 	]
 }

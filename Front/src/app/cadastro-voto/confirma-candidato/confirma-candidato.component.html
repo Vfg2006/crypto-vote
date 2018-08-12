@@ -1,38 +1,48 @@
 <h2 class="text-center">Prefeito</h2>
 
+<div class="box-body">
 
-<form [formGroup]="confirmaCandidatoForm" novalidate>
+  <div class="row">
+    <div class="col-xs-4 box-imgs">
+      <div class="row">
+        <img class="foto-principal img-responsive" [src]="recebeCandidato.fotoPath">
+      </div>
 
-  <!-- <div class="row">
-    <div class="col-xs-2 col-sm-2">
-      <input class="form-control input-lg" formControlName="primeiroNumero" autocomplete="off">
+      <div class="row label-foto-principal">
+        <label>{{ recebeCandidato.cargo }}</label>
+      </div>
+
+      <div class="row">
+        <img class="foto-vice img-responsive" [src]="recebeCandidato.vice.fotoPath">
+      </div>
+
+      <div class="row label-foto-vice">
+        <label>Vice-{{ recebeCandidato.cargo }}(a)</label>
+      </div>
     </div>
 
-    <div class="col-xs-2 col-sm-2">
-      <input class="form-control input-lg" formControlName="segundoNumero" autocomplete="off">
-    </div>
-  </div> -->
-  <div class="formGroup box-imgs">
-    <div class="row">
-      <img class="foto-principal" src="../../assets/img/avatar1.png">
-    </div>
-
-    <div class="row label-foto-principal">
-      <label>Prefeito</label>
-    </div>
-
-    <div class="row">
-      <img class="foto-vice" src="../../assets/img/avatar2.png">
-    </div>
-
-    <div class="row label-foto-vice">
-      <label>Vice-Prefeita</label>
+    <div class="col-xs-8 box-informacoes">
+      <div class="row">
+        Conta Blockchain: <a target="_blank" href="https://rinkeby.etherscan.io/address/{{recebeCandidato.contaBlockchain}}">{{ recebeCandidato.contaBlockchain }}</a>
+      </div>
+      <div class="row">
+        Número: {{ recebeCandidato.numero }}
+      </div>
+      <div class="row">
+        Nome: {{ recebeCandidato.nome | uppercase }}
+      </div>
+      <div class="row">
+        Partido: {{ recebeCandidato.partido | uppercase }}
+      </div>
+      <div class="row">
+        Vice-{{ recebeCandidato.cargo }}(a): {{ recebeCandidato.vice.nome | uppercase }}
+      </div>
     </div>
   </div>
 
   <div class="row box-btn-voto">
-    <button class="btn btn-default btn-lg btn-voto" (click)="buscarCandidato()">Branco</button>
-    <button class="btn btn-danger btn-lg btn-voto" (click)="buscarCandidato()">Corrige</button>
-    <button class="btn btn-success btn-lg btn-voto" (click)="buscarCandidato()">Confirma</button>
+    <button class="btn btn-default btn-lg btn-voto" (click)="votarEmBranco()">BRANCO</button>
+    <button class="btn btn-danger btn-lg btn-voto" (click)="corrigir()">CORRIGE</button>
+    <button class="btn btn-success btn-lg btn-voto" (click)="votar()">CONFIRMA</button>
   </div>
-</form>
+</div>

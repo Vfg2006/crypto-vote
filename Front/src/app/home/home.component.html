@@ -6,7 +6,7 @@
   <div class="jumbotron welcome-jumbotron">
     <h1>Bem vindo ao Crypto Vote!</h1>
 
-    <a class="btn btn-primary btn-lg" [routerLink]="['/cadastro-voto']">Iniciar Votação</a>
+    <a #botao (load)="botao.focus()" class="btn btn-primary btn-lg" [routerLink]="['/cadastro-voto']">Iniciar Votação</a>
   </div>
 
 </section>

@@ -34,11 +34,13 @@ export class BuscaCandidatoComponent implements OnInit {
         console.log(data);
 
         this.candidato.emit({
+          contaBlockchain: data[0].contaBlockchain,
           numero: data[0].numero,
           nome: data[0].nome,
           partido: data[0].partido,
-          vice: data[0].vice,
-          cargo: data[0].cargo
+          cargo: data[0].cargo,
+          fotoPath: data[0].fotoPath,
+          vice: data[0].vice
         })
       },
       (error) => {
