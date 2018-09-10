@@ -23,7 +23,8 @@
 
     <div class="col-xs-8 box-informacoes">
       <div class="row">
-        Conta Blockchain: <a target="_blank" href="https://rinkeby.etherscan.io/address/{{recebeCandidato.contaBlockchain}}">{{ recebeCandidato.contaBlockchain }}</a>
+        Conta Blockchain:
+        <a target="_blank" href="https://rinkeby.etherscan.io/address/{{recebeCandidato.contaBlockchain}}">{{ recebeCandidato.contaBlockchain }}</a>
       </div>
       <div class="row">
         Número: {{ recebeCandidato.numero }}
@@ -43,6 +44,25 @@
   <div class="row box-btn-voto">
     <button class="btn btn-default btn-lg btn-voto" (click)="votarEmBranco()">BRANCO</button>
     <button class="btn btn-danger btn-lg btn-voto" (click)="corrigir()">CORRIGE</button>
-    <button class="btn btn-success btn-lg btn-voto" (click)="votar()">CONFIRMA</button>
+    <button class="btn btn-success btn-lg btn-voto" (click)="open(content)">CONFIRMA</button>
   </div>
+
+  <!-- <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+    </div>
+  </ng-template> -->
 </div>

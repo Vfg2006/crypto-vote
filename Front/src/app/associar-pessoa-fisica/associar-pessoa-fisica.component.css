@@ -1,0 +1,24 @@
+.form-control {
+    margin: 20px 0px 5px 20px;
+}
+
+.fingerprint {
+    border: 1px solid black;
+    margin-top: 20px;
+}
+
+.btn-fingerprint {
+    margin-top: 10px;
+}
+
+.fingerprint, .btn-fingerprint {
+    width: 170px;
+}
+
+.btn-success {
+    margin-top: 30px;
+}
+
+.uploadDigital {
+    display: none;
+}

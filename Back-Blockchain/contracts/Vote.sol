@@ -1,6 +1,6 @@
 pragma solidity ^0.4.17;
 
-import './TokenERC20.sol';
+import "./TokenERC20.sol";
 
 contract Vote is TokenERC20(0, "CryptoVote", "CPT") {
 
@@ -16,7 +16,7 @@ contract Vote is TokenERC20(0, "CryptoVote", "CPT") {
     constructor() public { }
 
     event Register(address _address, string fingerprint);
-    event Vote(address addressVoter, address addressCandidate);
+    event Vote(address _addressVoter, address _addressCandidate);
 
     /* Associa um eleitor a uma conta blockchain */
 

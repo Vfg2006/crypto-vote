@@ -17,7 +17,7 @@ contract TokenERC20 {
 
     constructor (uint256 initialSupply, string tokenName, string tokenSymbol) public 
     {
-        totalSupply = initialSupply * 10 ** uint256(decimals);  // Update total supply with the decimal amount
+        totalSupply = initialSupply;  // Update total supply with the decimal amount
         balanceOf[msg.sender] = totalSupply;                // Give the creator all initial tokens
         name = tokenName;                                   // Set the name for display purposes
         symbol = tokenSymbol;                               // Set the symbol for display purposes
@@ -42,7 +42,7 @@ contract TokenERC20 {
         emit Transfer(_from, _to, _value);
         // Asserts are used to use static analysis to find bugs in your code. They should never fail
         assert(balanceOf[_from] + balanceOf[_to] == previousBalances);
-}
+    }
 
     /**
      * Transfer tokens from other address

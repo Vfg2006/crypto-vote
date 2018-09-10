@@ -1,0 +1,67 @@
+<section class="content-header">
+  <h1>
+    Associar Conta
+  </h1>
+</section>
+
+<section class="content">
+  <div class="box box-primary">
+    <div class="box-header with-border">
+
+      <h3 class="box-title">
+        Informações do Usuário
+      </h3>
+
+    </div>
+
+    <div class="box-body" *ngIf="!candidato">
+
+      <form [formGroup]="associaEleitorForm" novalidate>
+
+        <div class="col-xs-7">
+          <div class="row">
+            <div class="col-sm-10 col-xs-12">
+              <input type="text" class="form-control" formControlName="nome" placeholder="Nome" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-10 col-xs-12">
+              <input type="text" class="form-control" formControlName="tituloEleitoral" placeholder="Título Eleitoral" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-10 col-xs-12">
+              <input type="text" class="form-control" formControlName="identidade" placeholder="Identidade" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-10 col-xs-12">
+              <input type="text" class="form-control" formControlName="cpf" placeholder="CPF" />
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-4" align="center">
+          <div class="fingerprint">
+            <input type="hidden" class="form-control" formControlName="impressaoDigital" />
+            <img class="foto-principal img-responsive" src="../assets/img/fingerprint.png">
+          </div>
+
+          <input class="uploadDigital" type="file" #fingerprint (change)="carregarDigital(file.files[0])" hidden/>
+          <button class="btn btn-primary btn-fingerprint" (click)="fingerprint.click()">Inserir Digital</button>
+        </div>
+
+
+        <div class="row">
+          <div class="col-sm-12 col-xs-12" align="center">
+            <button class="btn btn-success btn-lg" (click)="associarEleitor()">Associar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</section>
