@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter  } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { VotoService } from '../voto.service';
 import { Candidato } from '../../candidato.model';
 
@@ -18,8 +18,8 @@ export class BuscaCandidatoComponent implements OnInit {
 
   ngOnInit() {
     this.buscaCandidatoForm = this.formbuilder.group({
-      primeiroNumero: this.formbuilder.control(''),
-      segundoNumero: this.formbuilder.control('')
+      primeiroNumero: ['', Validators.maxLength(1)],
+      segundoNumero: ['', Validators.maxLength(1)]
     })
   }
 

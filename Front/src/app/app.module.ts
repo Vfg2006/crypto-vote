@@ -30,7 +30,7 @@ import { AssociarPessoaFisicaComponent } from './associar-pessoa-fisica/associar
     CadastroVotoComponent,
     BuscaCandidatoComponent,
     ConfirmaCandidatoComponent,
-    AssociarPessoaFisicaComponent
+    AssociarPessoaFisicaComponent, 
   ],
   imports: [
     BrowserModule,

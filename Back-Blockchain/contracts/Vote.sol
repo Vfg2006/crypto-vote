@@ -16,7 +16,7 @@ contract Vote is TokenERC20(0, "CryptoVote", "CPT") {
     constructor() public { }
 
     event Register(address _address, string fingerprint);
-    event Vote(address _addressVoter, address _addressCandidate);
+    // event Vote(address _addressVoter, address _addressCandidate);
 
     /* Associa um eleitor a uma conta blockchain */
 
@@ -45,6 +45,6 @@ contract Vote is TokenERC20(0, "CryptoVote", "CPT") {
 
         _transfer(msg.sender, addressCandidate, 1);
 
-        emit Vote(msg.sender, addressCandidate);
+        // emit Vote(msg.sender, addressCandidate);
     }
 }

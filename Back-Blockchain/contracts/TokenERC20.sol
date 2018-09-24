@@ -76,20 +76,20 @@ contract TokenERC20 {
      * @param _spender The address authorized to spend
      * @param _value the max amount they can spend
      */
-    // function approve(address _spender, uint256 _value) public pure returns (bool) {
-    //     // Não usada no BNDES Token ainda
-    //     revert();
+    function approve(address _spender, uint256 _value) public pure returns (bool) {
+        // Não usada no BNDES Token ainda
+        revert();
 
-    //     //Coloquei esse código só para não dar warning
-    //     if (_spender == 0) 
-    //         return false;
-    //     if (_spender != 0) 
-    //         return false;
-    //     if (_value == 0) 
-    //         return false;
-    //     if (_value != 0) 
-    //         return false;
-    // }
+        //Coloquei esse código só para não dar warning
+        if (_spender == 0) 
+            return false;
+        if (_spender != 0) 
+            return false;
+        if (_value == 0) 
+            return false;
+        if (_value != 0) 
+            return false;
+    }
 
     function getBalanceOf(address _addr) view public returns(uint256) {
         return balanceOf[_addr];

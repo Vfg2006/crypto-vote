@@ -1,5 +1,9 @@
 .form-control {
-    margin: 20px 0px 5px 20px;
+    margin: 20px 0px 5px 0px;
+}
+
+form {
+    padding: 20px;
 }
 
 .fingerprint {

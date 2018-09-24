@@ -44,6 +44,9 @@ Promise.promisifyAll(mongoose); // key part - promisification
 var n = contratoJson.networks;
 var accounts;
 
+console.log(contratoJson.networks)
+console.log(n)
+
 console.log("config.infra.rede_blockchain (4=Rinkeby|4447=local) = " + config.infra.rede_blockchain);
 
 ABI = contratoJson['abi']

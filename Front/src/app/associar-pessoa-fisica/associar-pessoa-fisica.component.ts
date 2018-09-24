@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Web3Service } from '../shared/Web3Service';
-import { PessoaFisica } from '../modelo/PessoaFisica.model';
+import { PessoaFisica } from '../model/PessoaFisica.model';
 
 @Component({
   selector: 'vg-associar-pessoa-fisica',
@@ -14,17 +14,30 @@ export class AssociarPessoaFisicaComponent implements OnInit {
 
   pessoaFisica: PessoaFisica
 
-  constructor(private formbuilder: FormBuilder, private web3Service: Web3Service) { }
+  opcoesTipoAssocicao: any[] = [
+    { label: 'Eleitor', value: 'eleitor' },
+    { label: 'Candidadto', value: 'candidato' }
+  ]
+
+  constructor(private formbuilder: FormBuilder, private web3Service: Web3Service,
+    private ref: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.pessoaFisica = new PessoaFisica();
 
     this.associaEleitorForm = this.formbuilder.group({
-      nome: this.formbuilder.control(''),
-      tituloEleitoral: this.formbuilder.control(''),
-      identidade: this.formbuilder.control(''),
-      cpf: this.formbuilder.control(''),
-      impressaoDigital: this.formbuilder.control('')
+      nome: ['', Validators.required],
+      tituloEleitoral: ['', Validators.required],
+      identidade: ['', Validators.required],
+      cpf: ['', Validators.required],
+      impressaoDigital: ['', Validators.required],
+      tipoAssociacao: ['', Validators.required],
+      partido: [''],
+      numeroCandidato: [''],
+      cargoPretendido: [''],
+      fotoCandidato: [''],
+      nomeVice: [''],
+      fotoVice: [''],
     })
   }
 
@@ -35,7 +48,7 @@ export class AssociarPessoaFisicaComponent implements OnInit {
     fileReader.readAsText(file, "UTF-8");
 
     fileReader.onload = function (e) {
-      self.pessoaFisica.impressaoDigital = fileReader.result
+      self.pessoaFisica.impressaoDigital = fileReader.result.toString()
     }
   }
 
@@ -47,6 +60,14 @@ export class AssociarPessoaFisicaComponent implements OnInit {
     this.pessoaFisica.impressaoDigital = this.associaEleitorForm.get('impressaoDigital').value
   }
 
+  definirPapel(papel) {
+    console.log(papel)
+
+    this.pessoaFisica.isCandidato = papel === "candidato" ? true : false
+
+    this.ref.detectChanges()
+  }
+
   associarEleitor() {
 
     this.criarPessoaFisica()
@@ -55,13 +76,13 @@ export class AssociarPessoaFisicaComponent implements OnInit {
 
     console.log(this.pessoaFisica)
 
-    // this.web3Service.cadastra(this.pessoaFisica.impressaoDigital, false,
-    //   (data) => {
+    this.web3Service.cadastra(this.pessoaFisica.impressaoDigital, false,
+      (data) => {
 
-    //   },
-    //   (error) => {
+      },
+      (error) => {
 
-    //   })
+      })
   }
 
 }
