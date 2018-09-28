@@ -41,28 +41,24 @@
     </div>
   </div>
 
-  <div class="row box-btn-voto">
+  <div class="row box-btn-voto text-center">
     <button class="btn btn-default btn-lg btn-voto" (click)="votarEmBranco()">BRANCO</button>
     <button class="btn btn-danger btn-lg btn-voto" (click)="corrigir()">CORRIGE</button>
     <button class="btn btn-success btn-lg btn-voto" (click)="open(content)">CONFIRMA</button>
   </div>
 
-  <!-- <ng-template #content let-modal>
+  <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <h4 class="modal-title" id="modal-basic-title">Hi there!</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
-      <form>
-        <div class="form-group">
-
-        </div>
-      </form>
+      <p>Hello, World!</p>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+      <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
     </div>
-  </ng-template> -->
+  </ng-template>
 </div>

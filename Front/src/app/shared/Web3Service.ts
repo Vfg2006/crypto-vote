@@ -83,12 +83,12 @@ export class Web3Service {
 
         let self = this;
 
-        this.getAddressOwner(function (addrOwner) {
-            console.log("addOwner=" + addrOwner);
-            self.addressOwner = addrOwner;
-        }, function (error) {
-            console.log("Erro ao buscar owner=" + error);
-        });
+        // this.getAddressOwner(function (addrOwner) {
+        //     console.log("addOwner=" + addrOwner);
+        //     self.addressOwner = addrOwner;
+        // }, function (error) {
+        //     console.log("Erro ao buscar owner=" + error);
+        // });
 
         console.log("INICIALIZOU O WEB3 - bndescoinContract abaixo");
         console.log(this.voteContract);
@@ -178,29 +178,29 @@ export class Web3Service {
     //     this.eventoLog[5].watch(callback);
     // }
 
-    registraWatcherEventosLocal(txHashProcurado, callback) {
-        //this.intializeWeb3(); //forca inicializa
-        let self = this;
-        console.info("Callback ", callback);
-        var event = this.voteContract.allEvents({fromBlock: 0, toBlock: 'latest'}, function (error, result) {
-            console.log( "Entrou no watch" );
-            console.log( "txHashProcurado: " + txHashProcurado );
-            console.log( "result.transactionHash: " + result.transactionHash );
-            let meuErro;
-            if ( txHashProcurado === result.transactionHash 
-                && !self.vetorTxJaProcessadas.includes(txHashProcurado)) {
-                console.log( "Chama callback " + result );
-                self.vetorTxJaProcessadas.push(txHashProcurado);
-                meuErro=error;
-            }
-            else {
-                meuErro = new Error('"Nao eh o evento de confirmacao procurado"');
-            } 
-            callback(meuErro, result);
+    // registraWatcherEventosLocal(txHashProcurado, callback) {
+    //     //this.intializeWeb3(); //forca inicializa
+    //     let self = this;
+    //     console.info("Callback ", callback);
+    //     var event = this.voteContract.allEvents({fromBlock: 0, toBlock: 'latest'}, function (error, result) {
+    //         console.log( "Entrou no watch" );
+    //         console.log( "txHashProcurado: " + txHashProcurado );
+    //         console.log( "result.transactionHash: " + result.transactionHash );
+    //         let meuErro;
+    //         if ( txHashProcurado === result.transactionHash 
+    //             && !self.vetorTxJaProcessadas.includes(txHashProcurado)) {
+    //             console.log( "Chama callback " + result );
+    //             self.vetorTxJaProcessadas.push(txHashProcurado);
+    //             meuErro=error;
+    //         }
+    //         else {
+    //             meuErro = new Error('"Nao eh o evento de confirmacao procurado"');
+    //         } 
+    //         callback(meuErro, result);
                 
-        });
-        console.log("registrou o watcher de eventos");
-    }
+    //     });
+    //     console.log("registrou o watcher de eventos");
+    // }
 
     recuperaContaSelecionada() {
         return this.web3.eth.accounts[0];
@@ -247,13 +247,13 @@ export class Web3Service {
     //         });
     // }
 
-    getAddressOwner(fSuccess: any, fError: any): number {
-        return this.voteContract.getOwner(
-            (error, result) => {
-                if (error) fError(error);
-                else fSuccess(result);
-            });
-    }
+    // getAddressOwner(fSuccess: any, fError: any): number {
+    //     return this.voteContract.getOwner(
+    //         (error, result) => {
+    //             if (error) fError(error);
+    //             else fSuccess(result);
+    //         });
+    // }
 
     getAddressOwnerCacheble() {
         return this.addressOwner;

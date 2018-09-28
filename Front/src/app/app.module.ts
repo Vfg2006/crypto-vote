@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { ROUTES } from './app.routes'
 
@@ -20,6 +21,8 @@ import { ConfirmaCandidatoComponent } from './cadastro-voto/confirma-candidato/c
 import { Web3Service } from './shared/Web3Service';
 import { ConstantesService } from './shared/ConstantesService';
 import { AssociarPessoaFisicaComponent } from './associar-pessoa-fisica/associar-pessoa-fisica.component';
+import { PessoaFisicaService } from './associar-pessoa-fisica/pessoa-fisica.service';
+import { DashboardResultadoComponent } from './dashboard-resultado/dashboard-resultado.component';
 
 
 @NgModule({
@@ -30,7 +33,8 @@ import { AssociarPessoaFisicaComponent } from './associar-pessoa-fisica/associar
     CadastroVotoComponent,
     BuscaCandidatoComponent,
     ConfirmaCandidatoComponent,
-    AssociarPessoaFisicaComponent, 
+    AssociarPessoaFisicaComponent,
+    DashboardResultadoComponent, 
   ],
   imports: [
     BrowserModule,
@@ -38,9 +42,10 @@ import { AssociarPessoaFisicaComponent } from './associar-pessoa-fisica/associar
     ReactiveFormsModule,
     FormsModule,
     RouterModule.forRoot(ROUTES),
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    FileUploadModule
   ],
-  providers: [{provide: LOCALE_ID, useValue: 'pt-BR'}, VotoService, Web3Service, ConstantesService],
+  providers: [{provide: LOCALE_ID, useValue: 'pt-BR'}, VotoService, Web3Service, PessoaFisicaService, ConstantesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

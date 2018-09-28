@@ -5,6 +5,7 @@ import { CadastroVotoComponent } from './cadastro-voto/cadastro-voto.component';
 import { BuscaCandidatoComponent } from './cadastro-voto/busca-candidato/busca-candidato.component';
 import { ConfirmaCandidatoComponent } from './cadastro-voto/confirma-candidato/confirma-candidato.component';
 import { AssociarPessoaFisicaComponent } from './associar-pessoa-fisica/associar-pessoa-fisica.component';
+import { DashboardResultadoComponent } from './dashboard-resultado/dashboard-resultado.component';
 
 export const ROUTES: Routes = [
   { path: '', component: HomeComponent },
@@ -15,5 +16,6 @@ export const ROUTES: Routes = [
         { path: 'confirma-candidato', component: ConfirmaCandidatoComponent },
     ]
   },
-  { path: 'associa-pessoa-fisica', component: AssociarPessoaFisicaComponent }
+  { path: 'associa-pessoa-fisica', component: AssociarPessoaFisicaComponent },
+  { path: 'dashboard-resultado', component: DashboardResultadoComponent }
 ]

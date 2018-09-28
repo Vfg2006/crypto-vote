@@ -28,10 +28,14 @@ export class ConfirmaCandidatoComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.recebeCandidato)
+
+    console.log(this.web3Service.recuperaContaSelecionada())
   }
 
   open(content) {
-    this.modalService.open(content, {}).result.then((result) => {
+    console.log(content)
+  
+    this.modalService.open(content, { centered: true }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;

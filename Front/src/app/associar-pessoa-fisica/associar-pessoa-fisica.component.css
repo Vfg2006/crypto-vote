@@ -26,3 +26,8 @@ form {
 .uploadDigital {
     display: none;
 }
+
+img {
+    width: 170px;
+    height: 180px;
+}

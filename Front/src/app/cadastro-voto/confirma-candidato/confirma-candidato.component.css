@@ -41,8 +41,6 @@
 }
 
 .box-btn-voto {
-    justify-content: center;
-    display: flex;
     margin-top: 20px;
 }
 
@@ -52,4 +50,7 @@
     margin-right: 10px;
 }
 
+.row {
+    display: block;
+}
 

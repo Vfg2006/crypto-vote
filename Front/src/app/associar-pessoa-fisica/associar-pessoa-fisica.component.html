@@ -17,55 +17,63 @@
     <div class="box-body" *ngIf="!candidato">
 
       <form [formGroup]="associaEleitorForm" novalidate>
+        <div class="row">
+          <div class="col-xs-7">
+            <div class="row">
+              <label>Tipo de Associação </label>
 
-        <div class="col-xs-7">
-          <div class="row">
-            <label>Tipo de Associação </label>
+              <div class="col-sm-10 col-xs-12">
+                <div class="radio-inline" *ngFor="let tipoAssociacao of opcoesTipoAssocicao">
+                  <input type="radio" [value]="tipoAssociacao.value" formControlName="tipoAssociacao" (change)="definirPapel(tipoAssociacao.value)">
+                  <label for="eleitor">{{ tipoAssociacao.label }} </label>
+                </div>
+              </div>
+            </div>
 
-            <div class="col-sm-10 col-xs-12">
-              <div class="radio-inline" *ngFor="let tipoAssociacao of opcoesTipoAssocicao">
-                <input type="radio" [value]="tipoAssociacao.value" formControlName="tipoAssociacao" (change)="definirPapel(tipoAssociacao.value)">
-                <label for="eleitor">{{ tipoAssociacao.label }} </label>
+            <div class="row">
+              <div class="col-sm-10 col-xs-12">
+                <input type="text" class="form-control" formControlName="nome" placeholder="Nome" />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-10 col-xs-12">
+                <input type="text" class="form-control" formControlName="tituloEleitoral" placeholder="Título Eleitoral" />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-10 col-xs-12">
+                <input type="text" class="form-control" formControlName="identidade" placeholder="Identidade" />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-10 col-xs-12">
+                <input type="text" class="form-control" formControlName="cpf" placeholder="CPF" />
               </div>
             </div>
           </div>
 
-          <div class="row">
-            <div class="col-sm-10 col-xs-12">
-              <input type="text" class="form-control" formControlName="nome" placeholder="Nome" />
+          <div class="col-xs-5" align="center">
+            <div class="fingerprint">
+              <input type="hidden" class="form-control" formControlName="impressaoDigital" />
+              <img class="foto-principal img-responsive" src="../assets/img/fingerprint.png">
             </div>
-          </div>
 
-          <div class="row">
-            <div class="col-sm-10 col-xs-12">
-              <input type="text" class="form-control" formControlName="tituloEleitoral" placeholder="Título Eleitoral" />
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-sm-10 col-xs-12">
-              <input type="text" class="form-control" formControlName="identidade" placeholder="Identidade" />
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-sm-10 col-xs-12">
-              <input type="text" class="form-control" formControlName="cpf" placeholder="CPF" />
-            </div>
+            <input class="uploadDigital" type="file" #fingerprint (change)="carregarDigital(file.files[0])" hidden />
+            <button class="btn btn-primary btn-fingerprint" (click)="fingerprint.click()">Inserir Digital</button>
           </div>
         </div>
 
-        <div class="col-xs-4" align="center">
-          <div class="fingerprint">
-            <input type="hidden" class="form-control" formControlName="impressaoDigital" />
-            <img class="foto-principal img-responsive" src="../assets/img/fingerprint.png">
+        <!-- <div class="row"> -->
+        <div *ngIf="pessoaFisica.isCandidato">
+          <div class="row">
+            <h3 class="box-title">
+              Informações do Candidato
+            </h3>
           </div>
 
-          <input class="uploadDigital" type="file" #fingerprint (change)="carregarDigital(file.files[0])" hidden />
-          <button class="btn btn-primary btn-fingerprint" (click)="fingerprint.click()">Inserir Digital</button>
-        </div>
-
-        <div class="formGroup" *ngIf="pessoaFisica.isCandidato">
           <div class="row">
             <div class="col-sm-5 col-xs-5">
               <input type="text" class="form-control" formControlName="partido" placeholder="Partido" />
@@ -82,21 +90,46 @@
             </div>
 
             <div class="col-sm-5 col-xs-5">
-              <input type="file" class="form-control" formControlName="fotoCandidato" />
+              <input type="text" class="form-control" formControlName="nomeVice" placeholder="Nome do Vice" />
             </div>
           </div>
 
           <div class="row">
-            <div class="col-sm-5 col-xs-5">
-              <input type="text" class="form-control" formControlName="nomeVice" placeholder="Nome do Vice" />
-            </div>
-
-            <div class="col-sm-5 col-xs-5">
-              <input type="file" class="form-control" formControlName="fotoVice" />
-            </div>
+            <h3 class="box-title">
+              Upload das Fotos
+            </h3>
           </div>
 
+          <div class="row">
+            <div class="col-sm-2 col-xs-2 text-center">
+              <div class="card" style="width: 18rem;">
+                <img *ngIf="candidatoFotoPath" class="card-img-top" [src]="candidatoFotoPath || ''">
+                <div class="card-body">
+                  <h5 class="card-title">Candidato</h5>
+                  <a href="javascript:void(0)" (click)="fotoCandidadato.click()" class="btn btn-primary">Upload</a>
+                </div>
+              </div>
+            </div>
+
+            <input id="candidato" type="file" #fotoCandidadato class="form-control" formControlName="fotoCandidato"
+              hidden ng2FileSelect [uploader]="uploader" (change)="readURL(fotoCandidadato, $event.target.id)" />
+
+            <input id="vice" type="file" #fotoVice class="form-control" formControlName="fotoVice" hidden ng2FileSelect
+              [uploader]="uploader" (change)="readURL(fotoVice, $event.target.id)" />
+
+            <div class="col-sm-2 col-xs-2 text-center">
+              <div class="card" style="width: 18rem;">
+                <img *ngIf="viceFotoPath" class="card-img-top" [src]="viceFotoPath || ''">
+                <div class="card-body">
+                  <h5 class="card-title">Vice</h5>
+                  <a href="javascript:void(0)" (click)="fotoVice.click()" class="btn btn-primary">Upload</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
+        <!-- </div> -->
 
         <div class="row">
           <div class="col-sm-12 col-xs-12" align="center">

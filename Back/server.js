@@ -39,18 +39,33 @@ app.use(function (req, res, next) {
 
 Promise.promisifyAll(mongoose); // key part - promisification
 
+var PessoasFisicas = mongoose.model('PessoasFisicas', {
+	nome: String,
+	tituloEleitoral: String,
+	identidade: String,
+	cpf: String,
+	impressaoDigital: String,
+	isCandidato: Boolean,
+	contaBlockchain: String,
+	partido: String,
+	numero: Number,
+	cargo: String,
+	fotoPath: String,
+	vice: {
+		nome: String,
+		fotoPath: String,
+	}
+})
+
 
 
 var n = contratoJson.networks;
 var accounts;
 
-console.log(contratoJson.networks)
-console.log(n)
-
 console.log("config.infra.rede_blockchain (4=Rinkeby|4447=local) = " + config.infra.rede_blockchain);
 
 ABI = contratoJson['abi']
-console.log( "abi = ", this.ABI )
+console.log("abi = ", this.ABI)
 
 let addrContrato;
 if (config.infra.rede_blockchain == 4) { //Rinkeby 
@@ -148,3 +163,62 @@ app.listen(8080, "0.0.0.0");
 
 let data = "\n" + new Date() + "\nApp listening on port 8080 ";
 console.log(data);
+
+app.post('/api/associcar-pessoa-fisica', function (req, res) {
+
+	console.log("Backend - Associa conta Pessoa Fisica")
+
+	let requisicao = req.body;
+
+	PessoasFisicas.create({
+		nome: requisicao.pessoasFisica.nome,
+		tituloEleitoral: requisicao.pessoasFisica.tituloEleitoral,
+		identidade: requisicao.pessoasFisica.identidade,
+		cpf: requisicao.pessoasFisica.nome,
+		impressaoDigital: requisicao.pessoasFisica.impressaoDigital,
+		isCandidato: requisicao.pessoasFisica.isCandidato,
+		contaBlockchain: requisicao.pessoasFisica.contaBlockchain,
+		partido: requisicao.pessoasFisica.partido,
+		numero: requisicao.pessoasFisica.numero,
+		cargo: requisicao.pessoasFisica.cargo,
+		fotoPath: requisicao.pessoasFisica.fotoPath,
+		vice: {
+			nome: requisicao.pessoasFisica.vice.nome,
+			fotoPath: requisicao.pessoasFisica.vice.fotoPath,
+		},
+		function(err, pf) {
+			if (err) {
+				console.log("Erro ao criar a pessoa fisica");
+				console.log(err);
+				res.sendStatus(500);
+			} else {
+				res.json({ sucesso: true });
+			}
+		}
+	});
+});
+
+var store = multer.diskStorage({
+	destination: function (req, file, cb) {
+		cb(null, './uploads');
+	},
+	filename: function (req, file, cb) {
+		cb(null, Date.now() + '-' + file.originalname);
+
+	}
+});
+
+var DIR = './uploads/';
+var upload = multer({ dest: DIR, storage: store }).single('file');
+
+app.post('/api/upload', function (req, res, next) {
+	upload(req, res, function (err) {
+		if (err) {
+			return res.status(501).json({ error: err });
+		}
+		console.log(req.file)
+		console.log(__dirname + '/' + req.file.destination + '/' + req.filename)
+
+		res.json({ filename: req.file.filename })
+	});
+});
