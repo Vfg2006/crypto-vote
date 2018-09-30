@@ -13,7 +13,7 @@ import { Candidato } from './../candidato.model'
 @Injectable()
 export class VotoService {
 
-    API = 'http://localhost:3000'
+    API = 'http://localhost:8080/api'
 
     constructor(private http: HttpClient) { }
 
