@@ -15,29 +15,29 @@
     margin-bottom: 10px;
 }
 
+.box-foto {
+    padding: 2px 17px 2px 17px;
+    margin-bottom: 10px;
+}
+
 .foto-principal {
     width: 240px;
-    border: solid 1px
 }
 
 .foto-vice {
     width: 110px;
-    border: solid 1px
 }
 
 .label-foto-principal {
     width: 240px;
     text-align: center;
-    border-style: solid;
-    border-width: 0px 1px 1px 1px;
-    margin-bottom: 1px;
+    background-color: #f1f1d1
 }
 
 .label-foto-vice {
     width: 110px;
     text-align: center;
-    border-style: solid;
-    border-width: 0px 1px 1px 1px;
+    background-color: #f1f1d1
 }
 
 .box-btn-voto {

@@ -39,7 +39,7 @@ app.use(function (req, res, next) {
 
 Promise.promisifyAll(mongoose); // key part - promisification
 
-var PessoasFisicas = mongoose.model('PessoasFisicas', {
+var PessoasFisicas = mongoose.model('Pessoasfisicas', {
 	nome: String,
 	tituloEleitoral: String,
 	identidade: String,
@@ -149,7 +149,6 @@ console.log("endereco do contrato=" + addrContrato);
 
 // }
 
-
 app.get('/api/abi', function (req, res) {
 	res.json(contratoJson);
 })
@@ -159,18 +158,15 @@ app.post('/api/constantesFront', function (req, res) {
 	res.json({ addrContrato: addrContrato });
 });
 
-// listen (start app with node server.js) 
-app.listen(8080, "0.0.0.0");
-
-let data = "\n" + new Date() + "\nApp listening on port 8080 ";
-console.log(data);
-
-app.post('/api/associcar-pessoa-fisica', associarPessoaFisica);
+app.post('/api/associar-pessoa-fisica', associarPessoaFisica);
 
 function associarPessoaFisica(req, res) {
 	let requisicao = req.body;
 
-	if (requisicao.pessoasFisica.isCandidato) {
+	console.log(requisicao)
+	console.log(requisicao.pessoaFisica)
+
+	if (requisicao.pessoaFisica.isCandidato) {
 		associarCandidato(req, res);
 	} else {
 		associarEleitor(req, res);
@@ -184,20 +180,20 @@ function associarCandidato(req, res) {
 	let requisicao = req.body;
 
 	PessoasFisicas.create({
-		nome: requisicao.pessoasFisica.nome,
-		tituloEleitoral: requisicao.pessoasFisica.tituloEleitoral,
-		identidade: requisicao.pessoasFisica.identidade,
-		cpf: requisicao.pessoasFisica.nome,
-		isCandidato: requisicao.pessoasFisica.isCandidato,
+		nome: requisicao.pessoaFisica.nome,
+		tituloEleitoral: requisicao.pessoaFisica.tituloEleitoral,
+		identidade: requisicao.pessoaFisica.identidade,
+		cpf: requisicao.pessoaFisica.nome,
+		isCandidato: requisicao.pessoaFisica.isCandidato,
 		dadosCandidato: {
-			contaBlockchainCandidato: requisicao.pessoasFisica.dadosCandidato.contaBlockchainCandidato,
-			partido: requisicao.pessoasFisica.dadosCandidato.partido,
-			numero: requisicao.pessoasFisica.dadosCandidato.numero,
-			cargo: requisicao.pessoasFisica.dadosCandidato.cargo,
-			fotoPath: requisicao.pessoasFisica.dadosCandidato.fotoPath,
+			contaBlockchainCandidato: requisicao.pessoaFisica.dadosCandidato.contaBlockchainCandidato,
+			partido: requisicao.pessoaFisica.dadosCandidato.partido,
+			numero: requisicao.pessoaFisica.dadosCandidato.numero,
+			cargo: requisicao.pessoaFisica.dadosCandidato.cargo,
+			fotoPath: requisicao.pessoaFisica.dadosCandidato.fotoPath,
 			vice: {
-				nome: requisicao.pessoasFisica.vice.nome,
-				fotoPath: requisicao.pessoasFisica.vice.fotoPath,
+				nome: requisicao.pessoaFisica.vice.nome,
+				fotoPath: requisicao.pessoaFisica.vice.fotoPath,
 			}
 		}
 	},
@@ -207,6 +203,7 @@ function associarCandidato(req, res) {
 				console.log(err);
 				res.sendStatus(500);
 			} else {
+				console.log("Candidato salvo com sucesso!")
 				res.json({ sucesso: true });
 			}
 		}
@@ -220,11 +217,11 @@ function associarEleitor(req, res) {
 	let requisicao = req.body;
 
 	PessoasFisicas.create({
-		nome: requisicao.pessoasFisica.nome,
-		tituloEleitoral: requisicao.pessoasFisica.tituloEleitoral,
-		identidade: requisicao.pessoasFisica.identidade,
-		cpf: requisicao.pessoasFisica.nome,
-		isCandidato: requisicao.pessoasFisica.isCandidato,
+		nome: requisicao.pessoaFisica.nome,
+		tituloEleitoral: requisicao.pessoaFisica.tituloEleitoral,
+		identidade: requisicao.pessoaFisica.identidade,
+		cpf: requisicao.pessoaFisica.nome,
+		isCandidato: requisicao.pessoaFisica.isCandidato,
 	},
 		function (err, pf) {
 			if (err) {
@@ -232,6 +229,7 @@ function associarEleitor(req, res) {
 				console.log(err);
 				res.sendStatus(500);
 			} else {
+				console.log("Eleitor salvo com sucesso!")
 				res.json({ sucesso: true });
 			}
 		}
@@ -240,33 +238,56 @@ function associarEleitor(req, res) {
 
 app.get('/api/candidatos', function (req, res) {
 
+	Promise.props({
+		pessoaFisica: PessoasFisicas.find().execAsync()
+	})
+		.then(function (result) {
+			console.log("Candidato encontrado com sucesso!");
+
+			console.log(result)
+
+			let candidato = result.pessoaFisica;
+			console.log(candidato)
+
+			res.json(candidato);
+		})
+		.catch(function (err) {
+			console.log("Erro ao buscar candidato");
+			console.log(error)
+			res.sendStatus(500);
+		})
+});
+
+app.get('/api/candidatos/:numero', function (req, res) {
+
 	console.log("Backend - Buscar Candidato por Número")
 
-	let param = req.query;
+	let param = req.params;
 
 	console.log(param.numero)
 
 	Promise.props({
-		candidato: PessoasFisicas.find({
-			'dadosCandidato.numero': param.numero }).execAsync()
+		pessoaFisica: PessoasFisicas.find(
+			{ 'dadosCandidato.numero': param.numero }
+		).execAsync()
 	})
-		.then(function (error, result){
+		.then(function (result) {
+			console.log("Candidato encontrado com sucesso!");
 
-			console.log(candidato)
 			console.log(result)
-			console.log(error)
-			
-			if (error) {
-				console.log("Erro ao buscar candidato");
-				console.log(error)
-				res.sendStatus(500);
-			} else {
-				console.log("Candidato encontrado com sucesso!");
-				res.json(result);
-			}
-		})
 
+			let candidato = result.pessoaFisica[0];
+			console.log(candidato)
+
+			res.json(candidato);
+		})
+		.catch(function (err) {
+			console.log("Erro ao buscar candidato");
+			console.log(error)
+			res.sendStatus(500);
+		})
 });
+
 
 var store = multer.diskStorage({
 	destination: function (req, file, cb) {
@@ -292,3 +313,9 @@ app.post('/api/upload', function (req, res, next) {
 		res.json({ filename: req.file.filename })
 	});
 });
+
+// listen (start app with node server.js) 
+app.listen(8080, "0.0.0.0");
+
+let data = "\n" + new Date() + "\nApp listening on port 8080 ";
+console.log(data);

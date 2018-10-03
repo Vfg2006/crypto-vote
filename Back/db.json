@@ -1,0 +1,54 @@
+{
+	"nome": "João da Silva",
+	"tituloEleitoral": "1234568794521",
+	"identidade": "562452397",
+	"cpf": "65842563214",
+	"isCandidato": true,
+	"dadosCandidato": {
+		"contaBlockchainCandidato": "0xb2ed8ebb091c17c21b4c6cd1ef768b66c31d15bc",
+		"partido": "PSC",
+		"numero": 10,
+		"cargo": "Prefeito",
+		"fotoPath": "../../assets/img/avatar1.png",
+		"vice": {
+			"nome": "Manoela Costa",
+			"fotoPath": "../../assets/img/avatar2.png"
+		}
+	}
+}
+{
+	"nome": "Maria de Souza",
+	"tituloEleitoral": "163681220388",
+	"identidade": "265281398",
+	"cpf": "21985713071",
+	"isCandidato": true,
+	"dadosCandidato": {
+		"contaBlockchainCandidato": "0x0751f545185fae1a882c311fcc3e8c00fb206fba",
+		"partido": "PSB",
+		"numero": 20,
+		"cargo": "Prefeito",
+		"fotoPath": "../../assets/img/avatar2.png",
+		"vice": {
+			"nome": "José Carlos",
+			"fotoPath": "../../assets/img/avatar1.png"
+		}
+	}
+}
+{
+	"nome": "Frederico Nogueira",
+	"tituloEleitoral": "875428720302",
+	"identidade": "455823881",
+	"cpf": "10599156007",
+	"isCandidato": true,
+	"dadosCandidato": {
+		"contaBlockchainCandidato": "0x98544babd863f5ce635453728aee5e1e22362782",
+		"partido": "PSDB",
+		"numero": 30,
+		"cargo": "Prefeito",
+		"fotoPath": "../../assets/img/avatar2.png",
+		"vice": {
+			"nome": "Paulo Silva",
+			"fotoPath": "../../assets/img/avatar1.png"
+		}
+	}
+}

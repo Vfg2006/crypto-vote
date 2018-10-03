@@ -20,7 +20,7 @@ export class PessoaFisicaService {
         console.log("PessoaFisicaService - Associar Pessoa fisica")
         console.log(pessoaFisica)
 
-        return this.http.post<Object>(`${this.API}/associar-pessoa-fisica`, pessoaFisica)
+        return this.http.post<Object>(`${this.API}/associar-pessoa-fisica`, { pessoaFisica: pessoaFisica })
             .catch(ErrorHandler.handleError)
     }
 }

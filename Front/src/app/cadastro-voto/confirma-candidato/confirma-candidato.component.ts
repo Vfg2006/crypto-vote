@@ -80,7 +80,7 @@ export class ConfirmaCandidatoComponent implements OnInit {
 
   corrigir() {
     console.log("Corrigir")
-    // this.router.navigate(['/cadastro-voto'])
+    this.router.navigate(['/cadastro-voto'])
 
   }
 

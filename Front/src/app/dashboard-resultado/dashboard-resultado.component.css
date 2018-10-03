@@ -1,0 +1,36 @@
+.box-body {
+    font-size: 18px;
+}
+
+.item {
+    display: flex;
+}
+
+.conta {
+    max-width: 40ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 360px;
+}
+
+.seta {
+    height: 25px;
+    margin-left: 15px;
+    margin-right: 15px;
+    width: 44px;
+    filter: invert(38%);
+}
+
+.voto {
+    margin-left: 100px;
+}
+
+.voto #qtd {
+    float: left;
+    width: 100px;
+}
+
+.voto #tx {
+    float: right;
+}

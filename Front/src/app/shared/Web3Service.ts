@@ -90,7 +90,7 @@ export class Web3Service {
         //     console.log("Erro ao buscar owner=" + error);
         // });
 
-        console.log("INICIALIZOU O WEB3 - bndescoinContract abaixo");
+        console.log("INICIALIZOU O WEB3 - VoteContract abaixo");
         console.log(this.voteContract);
     }
 

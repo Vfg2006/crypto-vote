@@ -84,22 +84,22 @@ export class AssociarPessoaFisicaComponent implements OnInit {
 
   criarPessoaFisica() {
 
-    console.log(this.pessoaFisica)
-
     this.pessoaFisica.nome = this.associaEleitorForm.get('nome').value
     this.pessoaFisica.tituloEleitoral = this.associaEleitorForm.get('tituloEleitoral').value
     this.pessoaFisica.identidade = this.associaEleitorForm.get('identidade').value
     this.pessoaFisica.cpf = this.associaEleitorForm.get('cpf').value
     this.pessoaFisica.impressaoDigital = this.associaEleitorForm.get('impressaoDigital').value
-    this.pessoaFisica.partido = this.associaEleitorForm.get('partido').value
-    this.pessoaFisica.numero = this.associaEleitorForm.get('numeroCandidato').value
-    this.pessoaFisica.cargo = this.associaEleitorForm.get('cargoPretendido').value
-    // this.pessoaFisica.vice.nome = this.associaEleitorForm.get('nomeVice').value
+
+    if (this.pessoaFisica.isCandidato) {
+      this.pessoaFisica.dadosCandidato.partido = this.associaEleitorForm.get('partido').value
+      this.pessoaFisica.dadosCandidato.numero = this.associaEleitorForm.get('numeroCandidato').value
+      this.pessoaFisica.dadosCandidato.cargo = this.associaEleitorForm.get('cargoPretendido').value
+      this.pessoaFisica.dadosCandidato.vice.nome = this.associaEleitorForm.get('nomeVice').value
+
+    }
   }
 
   definirPapel(papel) {
-    console.log(papel)
-
     this.pessoaFisica.isCandidato = papel === "candidato" ? true : false
 
     this.ref.detectChanges()
@@ -113,11 +113,10 @@ export class AssociarPessoaFisicaComponent implements OnInit {
       let filename = JSON.parse(response).filename;
 
       if (identificador == "candidato") {
-        this.pessoaFisica.fotoPath = URL + '/' + filename
+        this.pessoaFisica.dadosCandidato.fotoPath = URL + '/' + filename
       } else {
-        this.pessoaFisica.vice.fotoPath = URL + '/' + filename
+        this.pessoaFisica.dadosCandidato.vice.fotoPath = URL + '/' + filename
       }
-      console.log(this.pessoaFisica)
     }
   }
 
@@ -140,24 +139,22 @@ export class AssociarPessoaFisicaComponent implements OnInit {
 
     this.criarPessoaFisica()
 
-    console.log(this.pessoaFisica)
+    // this.web3Service.cadastra(this.pessoaFisica.impressaoDigital, this.pessoaFisica.isCandidato,
+    //   (data) => {
+    //     console.log(data)
 
-    this.web3Service.cadastra(this.pessoaFisica.impressaoDigital, this.pessoaFisica.isCandidato,
-      (data) => {
+    self.pessoaFisicaService.associarPessaFisica(self.pessoaFisica).subscribe(
+      data => {
         console.log(data)
-
-        self.pessoaFisicaService.associarPessaFisica(self.pessoaFisica).subscribe(
-          data => {
-            console.log(data)
-          },
-          error => {
-            console.error(error)
-          }
-        )
       },
-      (error) => {
+      error => {
         console.error(error)
-      })
+      }
+    )
+    // },
+    // (error) => {
+    //   console.error(error)
+    // })
   }
 
 }
