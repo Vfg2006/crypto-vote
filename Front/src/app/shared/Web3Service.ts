@@ -31,6 +31,8 @@ export class Web3Service {
     // private eventoLiquidacaoResgate: any;
     // private eventoLog: any[];
 
+    private eventoVoto: any
+
     private addressOwner: string;
 
     // private decimais : number;
@@ -130,6 +132,11 @@ export class Web3Service {
 
     get addingQuestion(): boolean {
         return this.adding;
+    }
+
+    recuperarEventVote(callback) {
+        this.eventoVoto = this.voteContract.Vote({}, { fromBlock: 0, toBlock: 'latest' })
+        this.eventoVoto.watch(callback)
     }
 
     // registraEventosCadastro(callback) {
