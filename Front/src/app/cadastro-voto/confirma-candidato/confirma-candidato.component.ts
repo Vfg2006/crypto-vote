@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, HostListener } from '@angular/core';
+import { Component, OnInit, Input, HostListener, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
@@ -18,13 +18,15 @@ export class ConfirmaCandidatoComponent implements OnInit {
 
   @Input() recebeCandidato: Candidato
 
+  @Output() corrige = new EventEmitter()
+
   closeResult: string;
 
   keyCode: any
 
   constructor(private formbuilder: FormBuilder, private votoService: VotoService, 
               private router: Router, private web3Service: Web3Service,
-              private modalService: NgbModal) { }
+              private modalService: NgbModal, private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
     console.log(this.recebeCandidato)
@@ -80,8 +82,7 @@ export class ConfirmaCandidatoComponent implements OnInit {
 
   corrigir() {
     console.log("Corrigir")
-    this.router.navigate(['/cadastro-voto'])
-
+    this.corrige.emit()
   }
 
   votar() {

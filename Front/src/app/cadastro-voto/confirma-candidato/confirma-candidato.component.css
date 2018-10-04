@@ -3,12 +3,13 @@
 }
 
 .box-imgs {
-
+    float: left;
 }
 
 .box-informacoes {
     font-size: 23px;
     margin-top: 40px;
+    float: right;
 }
 
 .box-informacoes > .row {

@@ -3,7 +3,7 @@
 <div class="box-body">
 
   <div class="row">
-    <div class="col-xs-4">
+    <div class="col-md-4 box-imgs">
       <div class="box-foto img-thumbnail">
         <div class="row">
           <img class="foto-principal" [src]="recebeCandidato.fotoPath">
@@ -25,7 +25,7 @@
       </div>
     </div>
 
-    <div class="col-xs-8 box-informacoes">
+    <div class="col-md-8 box-informacoes">
       <div class="row">
         Conta Blockchain:
         <a target="_blank" href="https://rinkeby.etherscan.io/address/{{recebeCandidato.contaBlockchain}}">{{
@@ -54,16 +54,17 @@
 
   <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Hi there!</h4>
+      <h4 class="modal-title" id="modal-basic-title">Aviso</h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
-      <p>Hello, World!</p>
+      <p>Você deseja confirmar o seu voto ? </p>
     </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+    <div class="modal-footer box-btn-voto">
+      <button type="button" class="btn btn-danger btn-voto" (click)="c('Save click')">Corrigir</button>
+      <button type="button" class="btn btn-success btn-voto" (click)="c('Save click')">Confirmar</button>
     </div>
   </ng-template>
 </div>

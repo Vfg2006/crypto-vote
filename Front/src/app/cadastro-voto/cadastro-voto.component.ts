@@ -19,4 +19,8 @@ export class CadastroVotoComponent implements OnInit {
     console.log(event)
     this.candidato = event
   }
+
+  corrigirCandidato() {
+    this.candidato = undefined
+  }
 }

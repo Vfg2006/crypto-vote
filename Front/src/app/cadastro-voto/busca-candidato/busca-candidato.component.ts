@@ -24,7 +24,6 @@ export class BuscaCandidatoComponent implements OnInit {
     }
 
     buscarCandidato() {
-        console.log(this.buscaCandidatoForm)
         let numero = parseInt(this.buscaCandidatoForm.controls.primeiroNumero.value + this.buscaCandidatoForm.controls.segundoNumero.value)
 
         console.log(numero)

@@ -19,7 +19,7 @@
     </div>
 
     <div class="box-body" *ngIf="candidato">
-      <vg-confirma-candidato  [recebeCandidato]="candidato"></vg-confirma-candidato>
+      <vg-confirma-candidato  [recebeCandidato]="candidato" (corrige)="corrigirCandidato($event)"></vg-confirma-candidato>
     </div>
   </div>
 </section>
