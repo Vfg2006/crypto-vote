@@ -135,7 +135,7 @@ export class Web3Service {
     }
 
     recuperarEventVote(callback) {
-        this.eventoVoto = this.voteContract.Vote({}, { fromBlock: 0, toBlock: 'latest' })
+        this.eventoVoto = this.voteContract.VoteConfirmed({}, { fromBlock: 0, toBlock: 'latest' })
         this.eventoVoto.watch(callback)
     }
 

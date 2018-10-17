@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Web3Service } from '../shared/Web3Service';
 import { Voto } from '../model/voto.model';
 
@@ -11,18 +11,26 @@ export class DashboardResultadoComponent implements OnInit {
 
   votos: Voto[]
 
-  constructor(private web3Service: Web3Service) { }
+  constructor(private web3Service: Web3Service, private ref: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.recuperarEventoVoto()
+
+    setTimeout(() => {
+      this.recuperarEventoVoto()
+    }, 1000)
+    
   }
 
   recuperarEventoVoto() {
 
     this.votos = []
 
+    let self = this
+
     this.web3Service.recuperarEventVote(function(err, event) {
       if(!err) {
+
+        console.log(event)
 
         let voto = {
           contaBlockchainOrigem: event.args._addressVoter,
@@ -31,7 +39,9 @@ export class DashboardResultadoComponent implements OnInit {
           hashTransacao: event.transactionHash
         }
         
-        this.votos.push(voto)
+        self.votos.push(voto)
+        self.ref.detectChanges()
+        console.log(self.votos)
       }
     })
   }

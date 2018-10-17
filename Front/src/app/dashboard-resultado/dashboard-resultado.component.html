@@ -23,8 +23,8 @@
               Origem do Voto
             </div>
 
-            <div class="seta" ></div>
-            
+            <div class="seta"></div>
+
             <div class="conta">
               Destino do Voto
             </div>
@@ -37,45 +37,26 @@
           </div>
         </div>
 
-        <div class="list-group-item">
+        <div class="list-group-item" *ngFor="let voto of votos">
           <div class="item">
             <div class="conta">
-              <a target="_blank" href="">0x627306090abab3a6e1400e9345bc60c78a8bef57</a>
+              <a target="_blank" href="">{{ voto.contaBlockchainOrigem }}</a>
             </div>
 
             <img class="seta" src="assets/img/seta.png" />
 
             <div class="conta">
-              <a target="_blank" href="">0xc5fdf4076b8f3a5357c5e395ab970b5b54098fef</a>
+              <a target="_blank" href="">{{ voto.contaBlockchainDestino }}</a>
             </div>
 
             <span class="voto">
-              <div id="qtd">1 Token</div>
+              <div id="qtd">{{ voto.qtdToken }} Token</div>
 
               <div id="tx"><a target="_blank" href=""><i class="fa fa-external-link"></i></a></div>
             </span>
           </div>
         </div>
 
-        <div class="list-group-item">
-          <div class="item">
-            <div class="conta">
-              <a target="_blank" href="">0x627306090abab3a6e1400e9345bc60c78a8bef57</a>
-            </div>
-
-            <img class="seta" src="assets/img/seta.png" />
-
-            <div class="conta">
-              <a target="_blank" href="">0xc5fdf4076b8f3a5357c5e395ab970b5b54098fef</a>
-            </div>
-
-            <span class="voto">
-              <div id="qtd">1 Token</div>
-
-              <div id="tx"><a target="_blank" href=""><i class="fa fa-external-link"></i></a></div>
-            </span>
-          </div>
-        </div>
       </div>
     </div>
   </div>
