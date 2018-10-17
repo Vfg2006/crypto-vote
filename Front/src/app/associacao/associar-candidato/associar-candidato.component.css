@@ -6,19 +6,6 @@ form {
     padding: 20px;
 }
 
-.fingerprint {
-    border: 1px solid black;
-    margin-top: 20px;
-}
-
-.btn-fingerprint {
-    margin-top: 10px;
-}
-
-.fingerprint, .btn-fingerprint {
-    width: 170px;
-}
-
 .btn-success {
     margin-top: 30px;
 }
@@ -30,4 +17,8 @@ form {
 img {
     width: 170px;
     height: 180px;
+}
+
+.card {
+    box-shadow: 4px 4px 10px -3px rgba(0,0,0,0.6);
 }

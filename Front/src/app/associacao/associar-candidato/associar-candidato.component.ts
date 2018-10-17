@@ -1,34 +1,29 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Web3Service } from '../shared/Web3Service';
-import { PessoaFisica } from '../model/PessoaFisica.model';
-import { PessoaFisicaService } from './pessoa-fisica.service';
+import { Web3Service } from '../../shared/Web3Service';
+import { PessoaFisica } from '../../model/PessoaFisica.model';
+import { PessoaFisicaService } from '../pessoa-fisica.service';
 
 import { FileSelectDirective, FileUploader } from 'ng2-file-upload'
-import { ConstantesService } from '../shared/ConstantesService';
+import { ConstantesService } from '../../shared/ConstantesService';
 
 const URL = ConstantesService.serverUrl + "upload"
 
 @Component({
-  selector: 'vg-associar-pessoa-fisica',
-  templateUrl: './associar-pessoa-fisica.component.html',
-  styleUrls: ['./associar-pessoa-fisica.component.css']
+  selector: 'vg-associar-candidato',
+  templateUrl: './associar-candidato.component.html',
+  styleUrls: ['./associar-candidato.component.css']
 })
-export class AssociarPessoaFisicaComponent implements OnInit {
+export class AssociarCandidatoComponent implements OnInit {
 
   uploader: FileUploader = new FileUploader({ url: URL });
 
-  associaEleitorForm: FormGroup
+  associaCandidatoForm: FormGroup
 
   pessoaFisica: PessoaFisica
 
   candidatoFotoPath: any
   viceFotoPath: any
-
-  opcoesTipoAssocicao: any[] = [
-    { label: 'Eleitor', value: 'eleitor' },
-    { label: 'Candidadto', value: 'candidato' }
-  ]
 
   constructor(private formbuilder: FormBuilder, private web3Service: Web3Service,
     private ref: ChangeDetectorRef, private pessoaFisicaService: PessoaFisicaService) { }
@@ -36,32 +31,17 @@ export class AssociarPessoaFisicaComponent implements OnInit {
   ngOnInit() {
     this.pessoaFisica = new PessoaFisica();
 
-    // this.inicializarPessoaFisica()
     this.createReactiveForms()
 
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
   }
 
-  // inicializarPessoaFisica() {
-
-  //   this.pessoaFisica.nome = ''
-  //   this.pessoaFisica.tituloEleitoral = ''
-  //   this.pessoaFisica.identidade = ''
-  //   this.pessoaFisica.cpf = ''
-  //   this.pessoaFisica.impressaoDigital = ''
-  //   this.pessoaFisica.partido = ''
-  //   this.pessoaFisica.numero = 0
-  //   this.pessoaFisica.cargo = ''
-  //   this.pessoaFisica.vice.nome = ''
-  // }
-
   createReactiveForms() {
-    this.associaEleitorForm = this.formbuilder.group({
+    this.associaCandidatoForm = this.formbuilder.group({
       nome: ['', Validators.required],
       tituloEleitoral: ['', Validators.required],
       identidade: ['', Validators.required],
       cpf: ['', Validators.required],
-      impressaoDigital: [''],
       tipoAssociacao: ['', Validators.required],
       partido: [''],
       numeroCandidato: [''],
@@ -71,38 +51,19 @@ export class AssociarPessoaFisicaComponent implements OnInit {
       fotoVice: [''],
     })
   }
-  carregarDigital(file) {
-    let self = this
-
-    var fileReader = new FileReader();
-    fileReader.readAsText(file, "UTF-8");
-
-    fileReader.onload = function (e) {
-      self.pessoaFisica.impressaoDigital = fileReader.result.toString()
-    }
-  }
 
   criarPessoaFisica() {
-
-    this.pessoaFisica.nome = this.associaEleitorForm.get('nome').value
-    this.pessoaFisica.tituloEleitoral = this.associaEleitorForm.get('tituloEleitoral').value
-    this.pessoaFisica.identidade = this.associaEleitorForm.get('identidade').value
-    this.pessoaFisica.cpf = this.associaEleitorForm.get('cpf').value
-    this.pessoaFisica.impressaoDigital = this.associaEleitorForm.get('impressaoDigital').value
-
-    if (this.pessoaFisica.isCandidato) {
-      this.pessoaFisica.dadosCandidato.partido = this.associaEleitorForm.get('partido').value
-      this.pessoaFisica.dadosCandidato.numero = this.associaEleitorForm.get('numeroCandidato').value
-      this.pessoaFisica.dadosCandidato.cargo = this.associaEleitorForm.get('cargoPretendido').value
-      this.pessoaFisica.dadosCandidato.vice.nome = this.associaEleitorForm.get('nomeVice').value
-
-    }
-  }
-
-  definirPapel(papel) {
-    this.pessoaFisica.isCandidato = papel === "candidato" ? true : false
-
-    this.ref.detectChanges()
+    this.pessoaFisica.nome = this.associaCandidatoForm.get('nome').value
+    this.pessoaFisica.tituloEleitoral = this.associaCandidatoForm.get('tituloEleitoral').value
+    this.pessoaFisica.identidade = this.associaCandidatoForm.get('identidade').value
+    this.pessoaFisica.cpf = this.associaCandidatoForm.get('cpf').value
+    this.pessoaFisica.isCandidato = true
+    
+    this.pessoaFisica.dadosCandidato.partido = this.associaCandidatoForm.get('partido').value
+    this.pessoaFisica.dadosCandidato.numero = this.associaCandidatoForm.get('numeroCandidato').value
+    this.pessoaFisica.dadosCandidato.cargo = this.associaCandidatoForm.get('cargoPretendido').value
+    this.pessoaFisica.dadosCandidato.vice.nome = this.associaCandidatoForm.get('nomeVice').value
+    this.pessoaFisica.dadosCandidato.contaBlockchainCandidato = this.web3Service.recuperaContaSelecionada()
   }
 
   uploadFotos(identificador) {
@@ -156,5 +117,4 @@ export class AssociarPessoaFisicaComponent implements OnInit {
     //   console.error(error)
     // })
   }
-
 }

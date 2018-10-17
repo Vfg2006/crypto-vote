@@ -1,0 +1,23 @@
+<div class="box-body" *ngIf="!candidato">
+
+  <form [formGroup]="associaEleitorForm" novalidate>
+    <div class="row">
+      <div class="col-xs-5" align="center">
+        <div class="fingerprint">
+          <input type="hidden" class="form-control" formControlName="impressaoDigital" />
+          <img class="foto-principal img-responsive" src="../assets/img/fingerprint.png">
+        </div>
+
+        <input class="uploadDigital" type="file" #fingerprint (change)="carregarDigital(file.files[0])" hidden />
+        <button class="btn btn-primary btn-fingerprint" (click)="fingerprint.click()">Inserir Digital</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12 col-xs-12" align="center">
+        <button class="btn btn-success btn-lg" (click)="associarEleitor()">Associar</button>
+      </div>
+    </div>
+
+  </form>
+</div>

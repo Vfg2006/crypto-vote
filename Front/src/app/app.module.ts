@@ -20,9 +20,11 @@ import { BuscaCandidatoComponent } from './cadastro-voto/busca-candidato/busca-c
 import { ConfirmaCandidatoComponent } from './cadastro-voto/confirma-candidato/confirma-candidato.component';
 import { Web3Service } from './shared/Web3Service';
 import { ConstantesService } from './shared/ConstantesService';
-import { AssociarPessoaFisicaComponent } from './associar-pessoa-fisica/associar-pessoa-fisica.component';
-import { PessoaFisicaService } from './associar-pessoa-fisica/pessoa-fisica.service';
+import { AssociacaoComponent } from './associacao/associacao.component';
+import { PessoaFisicaService } from './associacao/pessoa-fisica.service';
 import { DashboardResultadoComponent } from './dashboard-resultado/dashboard-resultado.component';
+import { AssociarEleitorComponent } from './associacao/associar-eleitor/associar-eleitor.component';
+import { AssociarCandidatoComponent } from './associacao/associar-candidato/associar-candidato.component';
 
 
 @NgModule({
@@ -33,8 +35,10 @@ import { DashboardResultadoComponent } from './dashboard-resultado/dashboard-res
     CadastroVotoComponent,
     BuscaCandidatoComponent,
     ConfirmaCandidatoComponent,
-    AssociarPessoaFisicaComponent,
-    DashboardResultadoComponent, 
+    AssociacaoComponent,
+    DashboardResultadoComponent,
+    AssociarEleitorComponent,
+    AssociarCandidatoComponent, 
   ],
   imports: [
     BrowserModule,

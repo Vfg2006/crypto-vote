@@ -1,0 +1,51 @@
+<section class="content-header">
+  <h1>
+    Associar Conta
+  </h1>
+</section>
+
+<section class="content">
+  <div class="box box-primary">
+    <div class="box-header with-border">
+
+      <h3 class="box-title">
+        Informações do Usuário
+      </h3>
+
+    </div>
+
+    <div class="box-body" *ngIf="!opcaoSelecionada">
+      <div class="row">
+
+        <div class="col-xs-3 offset-md-3">
+          <a href="javascript:void(0)" (click)="selecionarAssociacao()" [routerLink]="['associar-eleitor']">
+            <div class="card text-white bg-info mb-3">
+              <div class="card-body">
+                <h3 class="card-title text-center">ELEITOR <i class="fa fa-user"></i></h3>
+              </div>
+            </div>
+          </a>
+        </div>
+
+
+        <div class="col-xs-3">
+          <a href="javascript:void(0)" (click)="selecionarAssociacao()" [routerLink]="['associar-candidato']">
+            <div class="card text-white bg-dark">
+              <div class="card-body">
+                <h3 class="card-title text-center">CANDIDATO <i class="fa fa-id-badge"></i></h3>
+              </div>
+            </div>
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- <vg-associar-eleitor *ngIf="opcao === 'eleitor'"></vg-associar-eleitor>
+
+    <vg-associar-candidato *ngIf="opcao === 'candidato'"></vg-associar-candidato> -->
+
+    <router-outlet *ngIf="opcaoSelecionada"></router-outlet>
+
+  </div>
+</section>

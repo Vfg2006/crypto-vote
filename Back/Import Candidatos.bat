@@ -1,1 +1,1 @@
-mongoimport --db cryptoVote --collection PessoasFisicas --file db.json
+mongoimport --db cryptovote --collection pessoasfisicas --file db.json
