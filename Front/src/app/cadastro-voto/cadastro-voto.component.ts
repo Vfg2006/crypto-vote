@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Candidato } from '../candidato.model';
+import { Candidato } from '../model/candidato.model';
 
 @Component({
   selector: 'vg-cadastro-voto',

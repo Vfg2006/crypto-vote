@@ -100,7 +100,7 @@ export class AssociarCandidatoComponent implements OnInit {
 
     this.criarPessoaFisica()
 
-    // this.web3Service.cadastra(this.pessoaFisica.impressaoDigital, this.pessoaFisica.isCandidato,
+    // this.web3Service.cadastra(this.pessoaFisica.impressaoDigital, true,
     //   (data) => {
     //     console.log(data)
 

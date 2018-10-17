@@ -19,9 +19,28 @@ export class AssociarEleitorComponent implements OnInit {
     private ref: ChangeDetectorRef, private pessoaFisicaService: PessoaFisicaService) { }
 
   ngOnInit() {
+    this.pessoaFisica = new PessoaFisica();
+
+    this.createReactiveForms()
+
+    setTimeout(() => {
+      this.associaEleitorForm.get('contaBlockchain').setValue(this.recuperaContaSelecionada())
+    }, 500)
+  }
+
+  recuperaContaSelecionada() {
+    let contaSelecionada = this.web3Service.recuperaContaSelecionada()
+
+    return contaSelecionada
+  }
+
+  refreshContaBlockchainSelecionada() {
+    this.associaEleitorForm.get('contaBlockchain').setValue(this.recuperaContaSelecionada())
   }
 
   carregarDigital(file) {
+    console.log(file)
+
     let self = this
 
     var fileReader = new FileReader();
@@ -35,12 +54,13 @@ export class AssociarEleitorComponent implements OnInit {
   createReactiveForms() {
     this.associaEleitorForm = this.formbuilder.group({
       impressaoDigital: [''],
+      contaBlockchain: ['']
     })
   }
 
   criarPessoaFisica() {
     this.pessoaFisica.impressaoDigital = this.associaEleitorForm.get('impressaoDigital').value
-    this.pessoaFisica.contaBlockchain = this.web3Service.recuperaContaSelecionada()
+    this.pessoaFisica.contaBlockchain = this.recuperaContaSelecionada()
   }
 
   associarEleitor() {
@@ -49,21 +69,13 @@ export class AssociarEleitorComponent implements OnInit {
 
     this.criarPessoaFisica()
 
-    // this.web3Service.cadastra(this.pessoaFisica.impressaoDigital, this.pessoaFisica.isCandidato,
-    //   (data) => {
-    //     console.log(data)
-
-    self.pessoaFisicaService.associarPessaFisica(self.pessoaFisica).subscribe(
-      data => {
+    this.web3Service.cadastra(this.pessoaFisica.impressaoDigital, false,
+      (data) => {
         console.log(data)
-      },
-      error => {
-        console.error(error)
-      }
-    )
-    // },
-    // (error) => {
-    //   console.error(error)
-    // })
+
+    },
+    (error) => {
+      console.error(error)
+    })
   }
 }

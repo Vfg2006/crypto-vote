@@ -28,8 +28,9 @@
     <div class="col-md-8 box-informacoes">
       <div class="row">
         Conta Blockchain:
-        <a target="_blank" href="https://rinkeby.etherscan.io/address/{{recebeCandidato.contaBlockchain}}">{{
-          recebeCandidato.contaBlockchain }}</a>
+        <a target="_blank" href="https://rinkeby.etherscan.io/address/{{recebeCandidato.contaBlockchain}}">
+          {{ recebeCandidato.contaBlockchain }}
+        </a>
       </div>
       <div class="row">
         Número: {{ recebeCandidato.numero }}
@@ -64,7 +65,7 @@
     </div>
     <div class="modal-footer box-btn-voto">
       <button type="button" class="btn btn-danger btn-voto" (click)="c('Save click')">Corrigir</button>
-      <button type="button" class="btn btn-success btn-voto" (click)="c('Save click')">Confirmar</button>
+      <button type="button" class="btn btn-success btn-voto" (click)="c('Save click'); votar()">Confirmar</button>
     </div>
   </ng-template>
 </div>

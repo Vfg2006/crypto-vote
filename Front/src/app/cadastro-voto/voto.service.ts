@@ -8,7 +8,7 @@ import 'rxjs/add/operator/catch'
 
 import {ErrorHandler} from '../app.error-handler'
 
-import { Candidato } from './../candidato.model'
+import { Candidato } from '../model/candidato.model'
 
 @Injectable()
 export class VotoService {

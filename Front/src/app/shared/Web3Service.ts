@@ -21,7 +21,7 @@ export class Web3Service {
     // Application Binary Interface so we can use the question contract
     private ABI
 
-    private vetorTxJaProcessadas : any[];
+    private vetorTxJaProcessadas: any[];
 
     // private eventoCadastro: any;
     // private eventoLiberacao: any;
@@ -38,7 +38,7 @@ export class Web3Service {
     // private decimais : number;
 
     constructor(private http: HttpClient, private constantes: ConstantesService) {
-       
+
         // this.eventoLog = [ {length: 6} ];
         this.vetorTxJaProcessadas = [];
 
@@ -176,7 +176,7 @@ export class Web3Service {
     //     this.eventoLog[3] = this.voteContract.LogBytes32({}, { fromBlock: 0, toBlock: 'latest' });
     //     this.eventoLog[4] = this.voteContract.LogAddress({}, { fromBlock: 0, toBlock: 'latest' });
     //     this.eventoLog[5] = this.voteContract.LogBool({}, { fromBlock: 0, toBlock: 'latest' });
-        
+
     //     this.eventoLog[0].watch(callback);
     //     this.eventoLog[1].watch(callback);
     //     this.eventoLog[2].watch(callback);
@@ -204,7 +204,7 @@ export class Web3Service {
     //             meuErro = new Error('"Nao eh o evento de confirmacao procurado"');
     //         } 
     //         callback(meuErro, result);
-                
+
     //     });
     //     console.log("registrou o watcher de eventos");
     // }
@@ -217,8 +217,17 @@ export class Web3Service {
         fSuccess: any, fError: any): void {
         console.log("Web3Service - Associa eleitor")
 
-        this.voteContract.registerVoter(fingerprint, isCandidato,
-            { from: this.web3.eth.accounts[0], gas: 500000 },
+        this.voteContract.registerVoter(fingerprint, isCandidato, { from: this.web3.eth.accounts[0], gas: 500000 },
+            (error, result) => {
+                if (error) fError(error);
+                else fSuccess(result);
+            });
+    }
+
+    votar(enderecoCandidato: string, fSuccess: any, fError: any): void {
+        console.log("Web3Service - Votar")
+
+        this.voteContract.vote(enderecoCandidato, { gas: 500000 },
             (error, result) => {
                 if (error) fError(error);
                 else fSuccess(result);
@@ -226,7 +235,7 @@ export class Web3Service {
     }
 
     getTotalSupply(fSuccess: any, fError: any): number {
-        console.log("vai recuperar o totalsupply. " );
+        console.log("vai recuperar o totalsupply. ");
         let self = this;
         return this.voteContract.getTotalSupply(
             (error, totalSupply) => {
@@ -278,7 +287,7 @@ export class Web3Service {
     //                 console.log ( "Decimais: " +  result.c[0] );
     //                 self.decimais = result.c[0] ;
     //             }
-                    
+
     //         }); 
     // }
 
@@ -323,9 +332,9 @@ export class Web3Service {
     //         if (!erro) return true;
     //         else return erro;
     //     });
-            
+
     //     Liberacao(pjsInfo[_to].cnpj, pjsInfo[_to].idSubcredito, _value);                    
-    
+
     // }
 
     // resgata(transferAmount: number, fSuccess: any, fError: any): void {
@@ -372,31 +381,30 @@ export class Web3Service {
     //         });
     // }
 
-    setBalanceOf(address: string, valor: number, fSuccess: any, fError: any): void 
-    {
+    setBalanceOf(address: string, valor: number, fSuccess: any, fError: any): void {
         // valor = this.converteDecimalParaInteiro(valor);
         this.voteContract.setBalanceOf(address, valor, { from: this.web3.eth.accounts[0], gas: 500000 },
             (error, result) => {
                 if (error) fError(error);
                 else fSuccess(result);
             }
-        );                
+        );
     }
 
     conexaoComBlockchainEstaOK() {
         try {
-          let contaBlockchain = this.recuperaContaSelecionada();
-          //console.log( "recuperaContaSelecionada = " + contaBlockchain );
-          if ( contaBlockchain != undefined )
-            return true;
-          else 
-            throw new Error('Conta nao definida');
-        } catch ( e ) {
-          //throw e;
-          return false;
-          //console.log("nao conseguiu recuperar conta no web3/metamask");
+            let contaBlockchain = this.recuperaContaSelecionada();
+            //console.log( "recuperaContaSelecionada = " + contaBlockchain );
+            if (contaBlockchain != undefined)
+                return true;
+            else
+                throw new Error('Conta nao definida');
+        } catch (e) {
+            //throw e;
+            return false;
+            //console.log("nao conseguiu recuperar conta no web3/metamask");
         }
-      }
+    }
 
 
     getBlockTimestamp(blockHash: number, fResult: any) {

@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { VotoService } from '../voto.service';
-import { Candidato } from '../../candidato.model';
+import { Candidato } from '../../model/candidato.model';
 
 @Component({
     selector: 'vg-busca-candidato',

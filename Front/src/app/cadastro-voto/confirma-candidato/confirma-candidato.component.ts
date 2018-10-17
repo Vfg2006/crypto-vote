@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, HostListener, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 import { Router } from '@angular/router'
 
 import { VotoService } from '../voto.service';
 
-import { Candidato } from '../../candidato.model';
+import { Candidato } from '../../model/candidato.model';
 import { Web3Service } from '../../shared/Web3Service';
 
 @Component({
@@ -24,9 +24,9 @@ export class ConfirmaCandidatoComponent implements OnInit {
 
   keyCode: any
 
-  constructor(private formbuilder: FormBuilder, private votoService: VotoService, 
-              private router: Router, private web3Service: Web3Service,
-              private modalService: NgbModal, private changeDetector: ChangeDetectorRef) { }
+  constructor(private formbuilder: FormBuilder, private votoService: VotoService,
+    private router: Router, private web3Service: Web3Service,
+    private modalService: NgbModal, private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
     console.log(this.recebeCandidato)
@@ -36,7 +36,7 @@ export class ConfirmaCandidatoComponent implements OnInit {
 
   open(content) {
     console.log(content)
-  
+
     this.modalService.open(content, { centered: true }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -50,7 +50,7 @@ export class ConfirmaCandidatoComponent implements OnInit {
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
       return 'by clicking on a backdrop';
     } else {
-      return  `with: ${reason}`;
+      return `with: ${reason}`;
     }
   }
 
@@ -87,7 +87,14 @@ export class ConfirmaCandidatoComponent implements OnInit {
 
   votar() {
     console.log("Votação Confirmada")
-    
+    this.web3Service.votar(this.recebeCandidato.contaBlockchain,
+      (data) => {
+        console.log(data)
+
+      },
+      (error) => {
+        console.error(error)
+      })
 
   }
 
