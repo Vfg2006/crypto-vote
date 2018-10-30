@@ -4,7 +4,31 @@
   </h1>
 </section>
 
-<section class="content">
+<section class="content ">
+  <div class="grafico-barra">
+      <ngx-charts-bar-vertical
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="dataChart"
+      [gradient]="gradient"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      [barPadding]="50"
+      [animations]="animations">
+      <!-- (select)="onSelect($event)" -->
+    </ngx-charts-bar-vertical>
+
+    <button (click)="startLiveData()">Start Live Data</button>
+    <button (click)="stopLiveData()">Stop Live Data</button>
+  </div>
+  <!-- </section>
+
+<section class="content"> -->
   <div class="box box-primary">
     <div class="box-header with-border">
 

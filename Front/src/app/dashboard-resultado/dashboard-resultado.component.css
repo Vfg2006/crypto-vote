@@ -34,3 +34,8 @@
 .voto #tx {
     float: right;
 }
+
+.grafico-barra {
+    margin-top: 20px;
+    margin-bottom: 200px;
+}

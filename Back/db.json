@@ -52,3 +52,21 @@
 		}
 	}
 }
+{
+	"nome": "Rafaela Almeida",
+	"tituloEleitoral": "165156165132",
+	"identidade": "516516651",
+	"cpf": "54584151561",
+	"isCandidato": true,
+	"dadosCandidato": {
+		"contaBlockchainCandidato": "0x2Fdb700dDE5fD2D763D431a90CE0e77155Bada20",
+		"partido": "PMDB",
+		"numero": 40,
+		"cargo": "Prefeito",
+		"fotoPath": "../../assets/img/avatar2.png",
+		"vice": {
+			"nome": "Diego Magalhães",
+			"fotoPath": "../../assets/img/avatar1.png"
+		}
+	}
+}

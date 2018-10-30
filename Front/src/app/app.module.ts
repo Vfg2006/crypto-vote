@@ -3,9 +3,11 @@ import { NgModule, LOCALE_ID } from '@angular/core';
 import { RouterModule, PreloadAllModules } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FileUploadModule } from 'ng2-file-upload';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { ROUTES } from './app.routes'
 
@@ -47,7 +49,9 @@ import { AssociarCandidatoComponent } from './associacao/associar-candidato/asso
     FormsModule,
     RouterModule.forRoot(ROUTES),
     NgbModule.forRoot(),
-    FileUploadModule
+    FileUploadModule,
+    NgxChartsModule,
+    BrowserAnimationsModule
   ],
   providers: [{provide: LOCALE_ID, useValue: 'pt-BR'}, VotoService, Web3Service, PessoaFisicaService, ConstantesService],
   bootstrap: [AppComponent]

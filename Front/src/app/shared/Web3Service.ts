@@ -43,7 +43,7 @@ export class Web3Service {
         this.vetorTxJaProcessadas = [];
 
         this.serverUrl = ConstantesService.serverUrl;
-        console.log("Web3Service.ts :: Selecionou URL = " + this.serverUrl)
+        // console.log("Web3Service.ts :: Selecionou URL = " + this.serverUrl)
 
         this.http.post<Object>(this.serverUrl + 'constantesFront', {}).subscribe(
             data => {
