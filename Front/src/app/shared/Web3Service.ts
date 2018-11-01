@@ -143,47 +143,6 @@ export class Web3Service {
     //     this.eventoCadastro = this.voteContract.Cadastro({}, { fromBlock: 0, toBlock: 'latest' });
     //     this.eventoCadastro.watch(callback);
     // }
-    // registraEventosTroca(callback) {
-    //     this.eventoCadastro = this.voteContract.Troca({}, { fromBlock: 0, toBlock: 'latest' });
-    //     this.eventoCadastro.watch(callback);
-    // }
-    // registraEventosLiberacao(callback) {
-    //     this.intializeWeb3(); //forca inicializa
-    //     this.eventoLiberacao = this.voteContract.Liberacao({}, { fromBlock: 0, toBlock: 'latest' });
-    //     this.eventoLiberacao.watch(callback);
-    // }
-    // registraEventosTransferencia(callback) {
-    //     this.eventoTransferencia = this.voteContract.Transferencia({}, { fromBlock: 0, toBlock: 'latest' });
-    //     this.eventoTransferencia.watch(callback);
-    // }
-    // registraEventosRepasse(callback) {
-    //     this.eventoRepasse = this.voteContract.Repasse({}, { fromBlock: 0, toBlock: 'latest' });
-    //     this.eventoRepasse.watch(callback);
-    // }
-    // registraEventosResgate(callback) {
-    //     this.eventoResgate = this.voteContract.Resgate({}, { fromBlock: 0, toBlock: 'latest' });
-    //     this.eventoResgate.watch(callback);
-    // }
-    // registraEventosLiquidacaoResgate(callback) {
-    //     this.eventoLiquidacaoResgate = this.voteContract.LiquidacaoResgate({}, { fromBlock: 0, toBlock: 'latest' });
-    //     this.eventoLiquidacaoResgate.watch(callback);
-    // }
-
-    // registraEventosLog(callback) {
-    //     this.eventoLog[0] = this.voteContract.LogUint({}, { fromBlock: 0, toBlock: 'latest' });
-    //     this.eventoLog[1] = this.voteContract.LogInt({}, { fromBlock: 0, toBlock: 'latest' });
-    //     this.eventoLog[2] = this.voteContract.LogBytes({}, { fromBlock: 0, toBlock: 'latest' });
-    //     this.eventoLog[3] = this.voteContract.LogBytes32({}, { fromBlock: 0, toBlock: 'latest' });
-    //     this.eventoLog[4] = this.voteContract.LogAddress({}, { fromBlock: 0, toBlock: 'latest' });
-    //     this.eventoLog[5] = this.voteContract.LogBool({}, { fromBlock: 0, toBlock: 'latest' });
-
-    //     this.eventoLog[0].watch(callback);
-    //     this.eventoLog[1].watch(callback);
-    //     this.eventoLog[2].watch(callback);
-    //     this.eventoLog[3].watch(callback);
-    //     this.eventoLog[4].watch(callback);
-    //     this.eventoLog[5].watch(callback);
-    // }
 
     // registraWatcherEventosLocal(txHashProcurado, callback) {
     //     //this.intializeWeb3(); //forca inicializa
@@ -244,25 +203,6 @@ export class Web3Service {
             });
     }
 
-    getBalanceOf(address: string, fSuccess: any, fError: any): number {
-        console.log("vai recuperar o balanceOf de " + address);
-        let self = this;
-        return this.voteContract.getBalanceOf(address,
-            (error, valorSaldoCNPJ) => {
-                if (error) fError(error);
-                // else fSuccess( self.converteInteiroParaDecimal( parseInt ( valorSaldoCNPJ ) ) );
-            });
-
-    }
-
-    // getCNPJ(addr: string, fSuccess: any, fError: any): number {
-    //     return this.voteContract.getCNPJ(addr,
-    //         (error, result) => {
-    //             if (error) fError(error);
-    //             else fSuccess(result);
-    //         });
-    // }
-
     // getAddressOwner(fSuccess: any, fError: any): number {
     //     return this.voteContract.getOwner(
     //         (error, result) => {
@@ -299,98 +239,6 @@ export class Web3Service {
     //     return ( _x / ( 10 ** this.decimais ) ) ;
     // }
 
-    // transfer(target: string, transferAmount: number, fSuccess: any, fError: any): void {
-
-    //     console.log("Web3Service - Transfer");
-    //     console.log('UnlockedAccount=' + this.web3.eth.accounts[0]);
-    //     console.log('Target=' + target);
-    //     console.log('TransferAmount=' + transferAmount);
-
-    //     transferAmount = this.converteDecimalParaInteiro(transferAmount);     
-    //     this.voteContract.transfer(target, transferAmount, { from: this.web3.eth.accounts[0], gas: 500000 },
-    //         (error, result) => {
-    //             if (error) fError(error);
-    //             else fSuccess(result);
-    //         });
-
-    // }
-
-    // liberacao(target: string, transferAmount: number, fSuccess: any, fError: any): void {
-    //     console.log("Web3Service - Liberacao")
-
-    //     this.transfer(target, transferAmount, fSuccess, fError);
-    // }
-
-    // aguardaLiberacao(cnpj: string, subcredito: number, valor: number)
-    // {
-    //     this.intializeWeb3(); //forca inicializa        
-    //     var evento = this.bndescoinContract.Liberacao({cnpj: cnpj, sucredito: subcredito, valor: valor}, 
-    //         { fromBlock: 'pending', toBlock: 'latest' });
-
-    //     evento.watch(function (erro, result) {
-    //         evento.stopWatching();
-    //         if (!erro) return true;
-    //         else return erro;
-    //     });
-
-    //     Liberacao(pjsInfo[_to].cnpj, pjsInfo[_to].idSubcredito, _value);                    
-
-    // }
-
-    // resgata(transferAmount: number, fSuccess: any, fError: any): void {
-
-    //     console.log("Web3Service - Resgata")
-    //     let self = this;
-
-    //     this.getAddressOwner(
-    //         function (addrOwner) {
-    //             self.transfer(addrOwner, transferAmount, fSuccess, fError);
-    //             console.log("owner abaixo - dentro do resgata");
-    //             console.log(addrOwner);
-    //         },
-    //         function (error) {
-    //             console.log("erro na recuperacao do owner dentro do metodo resgata");
-    //             console.log(error);
-    //         }
-    //     );
-
-    // }
-
-    // liquidaResgate(hashResgate: any, hashComprovante: any, fSuccess: any, fError: any) {
-    //     console.log("Web3Service - liquidaResgate")
-    //     console.log("HashResgate - " + hashResgate)
-    //     console.log("HashComprovante - " + hashComprovante)
-
-    //     this.voteContract.notificaLiquidacaoResgate(hashResgate, hashComprovante,
-    //         (error, result) => {
-    //             if (error) fError(error);
-    //             else fSuccess(result);
-    //         });
-    // }
-
-    // cancelarAssociacaoDeConta(cnpj: number, subcredito: number, cnpjOrigemRepasse: number,
-    //     isRepassador: boolean, fSuccess: any, fError: any) {
-    //     console.log("Web3Service - Cancelar Associacao")
-    //     console.log("CNPJ: " + cnpj + ", Subcredito: " + subcredito + ", cnpjOrigemRepasse: " + cnpjOrigemRepasse +
-    //         ", isRepassador: " + isRepassador)
-
-    //     this.voteContract.troca(cnpj, subcredito, { gas: 500000 },
-    //         (error, result) => {
-    //             if (error) fError(error);
-    //             else fSuccess(result);
-    //         });
-    // }
-
-    setBalanceOf(address: string, valor: number, fSuccess: any, fError: any): void {
-        // valor = this.converteDecimalParaInteiro(valor);
-        this.voteContract.setBalanceOf(address, valor, { from: this.web3.eth.accounts[0], gas: 500000 },
-            (error, result) => {
-                if (error) fError(error);
-                else fSuccess(result);
-            }
-        );
-    }
-
     conexaoComBlockchainEstaOK() {
         try {
             let contaBlockchain = this.recuperaContaSelecionada();
@@ -408,34 +256,8 @@ export class Web3Service {
 
 
     getBlockTimestamp(blockHash: number, fResult: any) {
-
         this.web3.eth.getBlock(blockHash, fResult);
-
     }
-
-    // isRepassador(address: string, fSuccess: any, fError: any): boolean {
-    //     return this.voteContract.isRepassador(address,
-    //         (error, result) => {
-    //             if (error) fError(error);
-    //             else fSuccess(result);
-    //         });
-    // }
-
-    // isFornecedor(address: string, fSuccess: any, fError: any): boolean {
-    //     return this.voteContract.isFornecedor(address,
-    //         (error, result) => {
-    //             if (error) fError(error);
-    //             else fSuccess(result);
-    //         });
-    // }
-
-    // isRepassadorSucredito(addrRepassador: string, addrSubcredito, fSuccess: any, fError: any): boolean {
-    //     return this.voteContract.isRepassadorSubcredito(addrRepassador, addrSubcredito,
-    //         (error, result) => {
-    //             if (error) fError(error);
-    //             else fSuccess(result);
-    //         });
-    // }
 
     // accountIsActive(address: string, fSuccess: any, fError: any): boolean {
     //     return this.voteContract.accountIsActive(address, 

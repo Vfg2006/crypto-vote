@@ -6,7 +6,7 @@
 
 <section class="content ">
   <div class="grafico-barra">
-      <ngx-charts-bar-vertical
+<ngx-charts-bar-vertical
       [view]="view"
       [scheme]="colorScheme"
       [results]="dataChart"
@@ -26,9 +26,26 @@
     <button (click)="startLiveData()">Start Live Data</button>
     <button (click)="stopLiveData()">Stop Live Data</button>
   </div>
-  <!-- </section>
 
-<section class="content"> -->
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">
+        Candidatos
+      </h3>
+    </div>
+
+    <div class="box-body">
+      <div class="box-candidatos">
+        <div class="circle" *ngFor="let candidato of candidatos">
+          <img [src]="candidato.fotoPath">
+        </div>
+        <!-- {{ candidato.nome }} -->
+      </div>
+    </div>
+
+    
+  </div>
+
   <div class="box box-primary">
     <div class="box-header with-border">
 
@@ -38,7 +55,7 @@
 
     </div>
 
-    <div class="box-body" *ngIf="!candidato">
+    <div class="box-body">
       <div class="list-group">
 
         <div class="list-group-item">

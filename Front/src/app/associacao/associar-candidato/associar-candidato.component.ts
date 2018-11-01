@@ -2,10 +2,10 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Web3Service } from '../../shared/Web3Service';
 import { PessoaFisica } from '../../model/PessoaFisica.model';
-import { PessoaFisicaService } from '../pessoa-fisica.service';
 
 import { FileSelectDirective, FileUploader } from 'ng2-file-upload'
 import { ConstantesService } from '../../shared/ConstantesService';
+import { CandidatoService } from '../../shared/candidato.service';
 
 const URL = ConstantesService.serverUrl + "upload"
 
@@ -26,7 +26,7 @@ export class AssociarCandidatoComponent implements OnInit {
   viceFotoPath: any
 
   constructor(private formbuilder: FormBuilder, private web3Service: Web3Service,
-    private ref: ChangeDetectorRef, private pessoaFisicaService: PessoaFisicaService) { }
+    private ref: ChangeDetectorRef, private candidatoService: CandidatoService) { }
 
   ngOnInit() {
     this.pessoaFisica = new PessoaFisica();
@@ -104,7 +104,7 @@ export class AssociarCandidatoComponent implements OnInit {
     //   (data) => {
     //     console.log(data)
 
-    self.pessoaFisicaService.associarPessaFisica(self.pessoaFisica).subscribe(
+    self.candidatoService.associarCandidato(self.pessoaFisica).subscribe(
       data => {
         console.log(data)
       },

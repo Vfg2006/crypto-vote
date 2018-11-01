@@ -1,7 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { PessoaFisica } from '../../model/PessoaFisica.model';
 import { Web3Service } from '../../shared/Web3Service';
-import { PessoaFisicaService } from '../pessoa-fisica.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
@@ -16,7 +15,7 @@ export class AssociarEleitorComponent implements OnInit {
   associaEleitorForm: FormGroup
 
   constructor(private formbuilder: FormBuilder, private web3Service: Web3Service,
-    private ref: ChangeDetectorRef, private pessoaFisicaService: PessoaFisicaService) { }
+    private ref: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.pessoaFisica = new PessoaFisica();

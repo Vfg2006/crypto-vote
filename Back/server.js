@@ -243,17 +243,17 @@ app.get('/api/candidatos', function (req, res) {
 		pessoaFisica: PessoasFisicas.find().execAsync()
 	})
 		.then(function (result) {
-			console.log("Candidato encontrado com sucesso!");
+			console.log("Candidatos encontrados com sucesso!");
 
 			console.log(result)
 
-			let candidato = result.pessoaFisica;
-			console.log(candidato)
+			let candidatos = result.pessoaFisica;
+			console.log(candidatos)
 
-			res.json(candidato);
+			res.json(candidatos);
 		})
 		.catch(function (err) {
-			console.log("Erro ao buscar candidato");
+			console.log("Erro ao buscar candidatos");
 			console.log(error)
 			res.sendStatus(500);
 		})

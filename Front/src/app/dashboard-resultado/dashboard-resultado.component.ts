@@ -1,6 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Web3Service } from '../shared/Web3Service';
 import { Voto } from '../model/voto.model';
+import { CandidatoService } from '../shared/candidato.service';
+import { Candidato } from '../model/candidato.model';
 
 @Component({
   selector: 'vg-dashboard-resultado',
@@ -9,32 +11,34 @@ import { Voto } from '../model/voto.model';
 })
 export class DashboardResultadoComponent implements OnInit {
 
-  dataChart: any[] = new Array();
+  dataChart: any[] = new Array()
 
-  multi: any[] = new Array();
+  multi: any[] = new Array()
 
+  candidatos: Candidato[] = new Array()
   votos: Voto[]
 
   interval: any
 
   // Options Chart
-  view: any[] = [1000, 300];
-  animations = true;
-  showXAxis = true;
-  showYAxis = true;
-  gradient = false;
-  showLegend = true;
-  showXAxisLabel = false;
-  xAxisLabel = 'Candidatos';
-  showYAxisLabel = true;
-  yAxisLabel = 'Votos';
+  view: any[] = [1000, 250]
+  animations = true
+  showXAxis = true
+  showYAxis = true
+  gradient = false
+  showLegend = true
+  showXAxisLabel = false
+  xAxisLabel = 'Candidatos'
+  showYAxisLabel = true
+  yAxisLabel = 'Votos'
 
   colorScheme = {
     domain: ['#a8385d', '#7aa3e5', '#a27ea8', '#aae3f5', '#adcded', '#a95963', '#8796c0', '#7ed3ed', '#50abcc', '#ad6886']
-  };
+  }
 
-  constructor(private web3Service: Web3Service, private ref: ChangeDetectorRef) {
+  constructor(private web3Service: Web3Service, private ref: ChangeDetectorRef, private candidatoService: CandidatoService) {
     this.dataChart = new Array();
+    
 
     this.initialData()
   }
@@ -47,27 +51,45 @@ export class DashboardResultadoComponent implements OnInit {
   }
 
   initialData() {
+    this.candidatoService.getCandidatos().subscribe(
+      data => {
+        console.log("Data")
+        console.log(data)
+        
+        data.forEach(candidato => {
+          console.log(candidato['dadosCandidato'].contaBlockchainCandidato)
+          
+          // this.candidatos.push(new Candidato(
+          //   candidato['dadosCandidato'].contaBlockchainCandidato,
+          //   candidato['dadosCandidato'].numero,
+          //   candidato.nome,
+          //   candidato['dadosCandidato'].partido,
+          //   candidato['dadosCandidato'].cargo,
+          //   candidato['dadosCandidato'].fotoPath,
+          //   candidato['dadosCandidato'].vice
+          // ))
+          this.candidatos.push({
+            contaBlockchain: candidato['dadosCandidato'].contaBlockchainCandidato,
+            numero: candidato['dadosCandidato'].numero,
+            nome: candidato.nome,
+            partido: candidato['dadosCandidato'].partido,
+            cargo: candidato['dadosCandidato'].cargo,
+            fotoPath: candidato['dadosCandidato'].fotoPath,
+            vice: candidato['dadosCandidato'].vice
+          })
 
-    // recuperar candidatos do mongoDB e setar datachart inicial com values vazios ou 0.
-    this.dataChart =
-      [
-        {
-          name: "candidato 1",
-          value: "8"
-        },
-        {
-          name: "candidato 2",
-          value: "1"
-        },
-        {
-          name: "candidato 3",
-          value: "3"
-        },
-        {
-          name: "candidato 4",
-          value: "4"
-        }
-      ]
+          this.dataChart.push({
+            name: candidato.nome,
+            value: "2"
+          })
+          console.log(this.candidatos)
+          this.dataChart = [...this.dataChart]
+        });
+      },
+      error => {
+        console.log(error)
+      }
+    )
   }
 
   startLiveData() {
@@ -81,7 +103,6 @@ export class DashboardResultadoComponent implements OnInit {
 
   stopLiveData() {
     clearInterval(this.interval);
-    console.log('Live data stopped');
   }
 
   recuperarEventoVoto() {
