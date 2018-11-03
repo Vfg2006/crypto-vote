@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { Candidato } from '../model/candidato.model';
 import { Web3Service } from '../shared/Web3Service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
@@ -14,9 +14,13 @@ export class CadastroVotoComponent implements OnInit {
   candidato: Candidato
   tipoVoto: string
 
+  impressaoDigital: string
+
   closeResult: string;
 
   keyCode: any
+
+  fim: boolean = false
 
   constructor(private web3Service: Web3Service, private modalService: NgbModal) { }
 
@@ -68,6 +72,8 @@ export class CadastroVotoComponent implements OnInit {
   getDigital(event) {
     console.log("GET DIGITAL")
     console.log(event)
+
+    this.impressaoDigital = event
   }
 
   getCandidato(event) {
@@ -90,7 +96,12 @@ export class CadastroVotoComponent implements OnInit {
   }
 
   votar() {
+    let self = this
+
     let enderecoDoVoto
+
+    let audio = <HTMLAudioElement> document.getElementById('audio')
+    audio.play()
 
     if (this.candidato != undefined && this.tipoVoto == undefined) {
       enderecoDoVoto = this.candidato.contaBlockchain
@@ -98,14 +109,31 @@ export class CadastroVotoComponent implements OnInit {
       enderecoDoVoto = ConstantesService.ENDERECO_BRANCO
     } else if (this.candidato == undefined && this.tipoVoto == ConstantesService.NULO) {
       enderecoDoVoto = ConstantesService.ENDERECO_NULO
-    } 
+    }
 
-    this.web3Service.votar(enderecoDoVoto,
-      (data) => {
-        console.log(data)
+    // TODO: validar digital com dados da blockchain
+    this.web3Service.validaDigital(this.impressaoDigital,
+      (result) => {
+        console.log(result)
+
+        if (result) {
+          self.web3Service.votar(enderecoDoVoto,
+            (data) => {
+              console.log(data)
+
+              self.fim = true
+            },
+            (error) => {
+              console.log("Erro ao realizar voto")
+              console.error(error)
+            })
+        } else {
+          console.log("Digital Inválida")
+        }
 
       },
       (error) => {
+        console.log("Erro ao validar a digital")
         console.error(error)
       })
 

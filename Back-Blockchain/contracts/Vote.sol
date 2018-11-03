@@ -12,6 +12,7 @@ contract Vote is TokenERC20(0, "CryptoVote", "CPT") {
     }
 
     mapping(address => Voter) public voters;
+    mapping(string => address) public addresses;
 
     constructor() public { }
 
@@ -26,6 +27,7 @@ contract Vote is TokenERC20(0, "CryptoVote", "CPT") {
         require(voters[addressVoter].candidate == 0x0);
 
         voters[addressVoter] = Voter(_fingerprint, _isCandidate, 0x0, false);
+        addresses[_fingerprint] = addressVoter;
         balanceOf[addressVoter] = 1;
 
         emit Register(addressVoter, _fingerprint);
@@ -46,5 +48,14 @@ contract Vote is TokenERC20(0, "CryptoVote", "CPT") {
         _transfer(msg.sender, addressCandidate, 1);
 
         emit VoteConfirmed(msg.sender, addressCandidate, 1);
+    }
+
+    function validaDigital(string fingerprint) public returns (bool) {
+        address addressVoter = msg.sender;
+        
+        if(addressVoter == addresses[fingerprint])
+            return true;
+
+        return false;
     }
 }

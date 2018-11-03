@@ -14,9 +14,9 @@
 
     </div>
 
-    <div class="box-body">
+    <div class="box-body" *ngIf="!fim">
 
-        <h2 class="text-center">Prefeito(a)</h2>
+      <h2 class="text-center">Prefeito(a)</h2>
 
       <div *ngIf="!candidato && tipoVoto == undefined">
         <vg-busca-candidato (candidato)="getCandidato($event)" (tipoVoto)="getTipoVoto($event)"></vg-busca-candidato>
@@ -27,13 +27,15 @@
       </div>
 
       <div *ngIf="!candidato && (tipoVoto == 'BRANCO' || tipoVoto == 'NULO')">
-        <vg-confirma-branco-nulo [tipoVoto]="tipoVoto" ></vg-confirma-branco-nulo>
+        <vg-confirma-branco-nulo [tipoVoto]="tipoVoto"></vg-confirma-branco-nulo>
       </div>
 
       <div class="row box-btn-voto text-center">
-        <button [disabled]="candidato || tipoVoto == 'NULO' || tipoVoto == 'BRANCO'" class="btn btn-default btn-lg btn-voto" (click)="votarEmBranco()">BRANCO</button>
+        <button [disabled]="candidato || tipoVoto == 'NULO' || tipoVoto == 'BRANCO'" class="btn btn-default btn-lg btn-voto"
+          (click)="votarEmBranco()">BRANCO</button>
         <button class="btn btn-danger btn-lg btn-voto" (click)="corrigir()">CORRIGE</button>
-        <button [disabled]="candidato == undefined && tipoVoto == undefined" class="btn btn-success btn-lg btn-voto" (click)="open(content)">CONFIRMA</button>
+        <button [disabled]="candidato == undefined && tipoVoto == undefined" class="btn btn-success btn-lg btn-voto"
+          (click)="open(content)">CONFIRMA</button>
       </div>
 
       <ng-template #content let-c="close" let-d="dismiss">
@@ -57,5 +59,12 @@
         </div>
       </ng-template>
     </div>
+
+    <div class="box-body" *ngIf="fim">
+
+      <p class="text-center texto-final">FIM</p>
+
+    </div>
+
   </div>
 </section>

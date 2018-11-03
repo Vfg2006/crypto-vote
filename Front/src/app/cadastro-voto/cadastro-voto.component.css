@@ -16,3 +16,8 @@
 .box-body {
     margin: 0 20px 0 20px;
 }
+
+.texto-final {
+    font-size: 50px;
+    font-weight: 500;
+}

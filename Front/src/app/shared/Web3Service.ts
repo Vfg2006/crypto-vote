@@ -139,35 +139,6 @@ export class Web3Service {
         this.eventoVoto.watch(callback)
     }
 
-    // registraEventosCadastro(callback) {
-    //     this.eventoCadastro = this.voteContract.Cadastro({}, { fromBlock: 0, toBlock: 'latest' });
-    //     this.eventoCadastro.watch(callback);
-    // }
-
-    // registraWatcherEventosLocal(txHashProcurado, callback) {
-    //     //this.intializeWeb3(); //forca inicializa
-    //     let self = this;
-    //     console.info("Callback ", callback);
-    //     var event = this.voteContract.allEvents({fromBlock: 0, toBlock: 'latest'}, function (error, result) {
-    //         console.log( "Entrou no watch" );
-    //         console.log( "txHashProcurado: " + txHashProcurado );
-    //         console.log( "result.transactionHash: " + result.transactionHash );
-    //         let meuErro;
-    //         if ( txHashProcurado === result.transactionHash 
-    //             && !self.vetorTxJaProcessadas.includes(txHashProcurado)) {
-    //             console.log( "Chama callback " + result );
-    //             self.vetorTxJaProcessadas.push(txHashProcurado);
-    //             meuErro=error;
-    //         }
-    //         else {
-    //             meuErro = new Error('"Nao eh o evento de confirmacao procurado"');
-    //         } 
-    //         callback(meuErro, result);
-
-    //     });
-    //     console.log("registrou o watcher de eventos");
-    // }
-
     recuperaContaSelecionada() {
         return this.web3.eth.accounts[0];
     }
@@ -187,6 +158,16 @@ export class Web3Service {
         console.log("Web3Service - Votar")
 
         this.voteContract.vote(enderecoCandidato, { gas: 500000 },
+            (error, result) => {
+                if (error) fError(error);
+                else fSuccess(result);
+            });
+    }
+
+    validaDigital(fingerprint: string, fSuccess: any, fError: any): void {
+        console.log("Web3Service - Validar Digital")
+
+        this.voteContract.validaDigital(fingerprint, { gas: 500000 },
             (error, result) => {
                 if (error) fError(error);
                 else fSuccess(result);
