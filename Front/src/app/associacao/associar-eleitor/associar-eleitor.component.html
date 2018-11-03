@@ -10,13 +10,7 @@
 
     <div class="row align-items-center">
       <div class="col-xs-5" align="center">
-        <div class="fingerprint">
-          <input type="hidden" class="form-control" formControlName="impressaoDigital" />
-          <img class="foto-principal img-responsive" src="../assets/img/fingerprint.png">
-        </div>
-
-        <input class="uploadDigital" type="file" #fingerprint (change)="carregarDigital(fingerprint.files[0])" hidden />
-        <button class="btn btn-primary btn-fingerprint" (click)="fingerprint.click()">Inserir Digital</button>
+          <vg-fingerprint (impressaoDigital)="getDigital($event)"></vg-fingerprint>
       </div>
 
       <div class="col-xs-2" align="center">

@@ -30,6 +30,8 @@ import { BuscaCandidatoComponent } from './cadastro-voto/busca-candidato/busca-c
 import { ConfirmaCandidatoComponent } from './cadastro-voto/confirma-candidato/confirma-candidato.component';
 
 import { DashboardResultadoComponent } from './dashboard-resultado/dashboard-resultado.component';
+import { FingerprintComponent } from './shared/fingerprint/fingerprint.component';
+import { ConfirmaBrancoNuloComponent } from './cadastro-voto/confirma-branco-nulo/confirma-branco-nulo.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { DashboardResultadoComponent } from './dashboard-resultado/dashboard-res
     AssociacaoComponent,
     DashboardResultadoComponent,
     AssociarEleitorComponent,
-    AssociarCandidatoComponent, 
+    AssociarCandidatoComponent,
+    FingerprintComponent,
+    ConfirmaBrancoNuloComponent, 
   ],
   imports: [
     BrowserModule,

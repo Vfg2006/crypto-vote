@@ -14,12 +14,48 @@
 
     </div>
 
-    <div class="box-body" *ngIf="!candidato">
-      <vg-busca-candidato (candidato)="getCandidato($event)"></vg-busca-candidato>
-    </div>
+    <div class="box-body">
 
-    <div class="box-body" *ngIf="candidato">
-      <vg-confirma-candidato  [recebeCandidato]="candidato" (corrige)="corrigirCandidato($event)"></vg-confirma-candidato>
+        <h2 class="text-center">Prefeito(a)</h2>
+
+      <div *ngIf="!candidato && tipoVoto == undefined">
+        <vg-busca-candidato (candidato)="getCandidato($event)" (tipoVoto)="getTipoVoto($event)"></vg-busca-candidato>
+      </div>
+
+      <div *ngIf="candidato && tipoVoto == undefined">
+        <vg-confirma-candidato [recebeCandidato]="candidato"></vg-confirma-candidato>
+      </div>
+
+      <div *ngIf="!candidato && (tipoVoto == 'BRANCO' || tipoVoto == 'NULO')">
+        <vg-confirma-branco-nulo [tipoVoto]="tipoVoto" ></vg-confirma-branco-nulo>
+      </div>
+
+      <div class="row box-btn-voto text-center">
+        <button [disabled]="candidato || tipoVoto == 'NULO' || tipoVoto == 'BRANCO'" class="btn btn-default btn-lg btn-voto" (click)="votarEmBranco()">BRANCO</button>
+        <button class="btn btn-danger btn-lg btn-voto" (click)="corrigir()">CORRIGE</button>
+        <button [disabled]="candidato == undefined && tipoVoto == undefined" class="btn btn-success btn-lg btn-voto" (click)="open(content)">CONFIRMA</button>
+      </div>
+
+      <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title"><strong>Aviso</strong></h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Para confirmar o seu voto utilize a sua digital: </strong></p>
+
+          <div align="center">
+            <vg-fingerprint (impressaoDigital)="getDigital($event)"></vg-fingerprint>
+          </div>
+        </div>
+
+        <div class="modal-footer box-btn-voto">
+          <button type="button" class="btn btn-danger btn-voto" (click)="c('Save click')">Corrigir</button>
+          <button type="button" class="btn btn-success btn-voto" (click)="c('Save click'); votar()">Confirmar</button>
+        </div>
+      </ng-template>
     </div>
   </div>
 </section>

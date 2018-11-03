@@ -1,0 +1,18 @@
+.box-btn-voto {
+    margin-top: 20px;
+    margin-bottom: 20px;    
+}
+
+.btn-voto {
+    font-weight: bold;
+    color: black;
+    margin-right: 10px;
+}
+
+.row {
+    display: block;
+}
+
+.box-body {
+    margin: 0 20px 0 20px;
+}

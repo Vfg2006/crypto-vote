@@ -12,8 +12,8 @@ var addrContrato = n[config.infra.rede_blockchain].address;
 var ABI = contratoJson['abi']
 
 //Infura HttpProvider Endpoint
-web3js = new web3(new web3.providers.HttpProvider("https://rinkeby.infura.io/v3/48c7f18143b24f88a699c55051377613"));
-
+// web3js = new web3(new web3.providers.HttpProvider("https://rinkeby.infura.io/v3/48c7f18143b24f88a699c55051377613"));
+web3js = new web3(new web3.providers.HttpProvider("http://127.0.0.1:9545/"));
 // app.get('/sendtx', function (req, res) {
 
 const myAddresses = [
@@ -58,73 +58,74 @@ function AssociarContasParaTeste() {
 
     console.log("Inicio da associação de contas")
 
-    // for (var i = 0; i < myAddresses.length; i++) {
+    for (var i = 0; i < myAddresses.length; i++) {
 
-    let fromAddress = myAddresses[0];
-    let pk = privatesKeys[0];
-    var count;
+        let fromAddress = myAddresses[i];
+        let pk = privatesKeys[i];
+        var count;
 
-    web3js.eth.getTransactionCount(fromAddress).then(function (v) {
-        console.log("Count: " + v);
-        count = v;
+        web3js.eth.getTransactionCount(fromAddress).then(function (v) {
+            console.log("Count: " + v);
+            count = v;
 
-        var privateKey = Buffer.from(pk, 'hex')
+            var privateKey = Buffer.from(pk, 'hex')
 
-        rawTransaction = {
-            "from": fromAddress, "gasPrice": web3js.utils.toHex(20 * 1e9), "gasLimit": web3js.utils.toHex(210000),
-            "to": contractAddress, "value": "0x0", "data": contract.methods.registerVoter("6v15sdvv61sd651v6sd1vsdv165sd1v1s6d5v", false).encodeABI(),
-            "nonce": 10000
-        }
+            rawTransaction = {
+                "from": fromAddress, "gasPrice": web3js.utils.toHex(20 * 1e9), "gasLimit": web3js.utils.toHex(210000),
+                "to": contractAddress, "value": "0x0", "data": contract.methods.registerVoter("6v15sdvv61sd651v6sd1vsdv165sd1v1s6d5v", false).encodeABI(),
+                "nonce": web3js.utils.toHex(count)
+            }
 
-        console.log(rawTransaction);
+            console.log(rawTransaction);
 
-        var transaction = new Tx(rawTransaction);
-        transaction.sign(privateKey);
+            var transaction = new Tx(rawTransaction);
+            transaction.sign(privateKey);
 
-        console.log(transaction)
-
-        web3js.eth.sendSignedTransaction('0x' + transaction.serialize().toString('hex'))
-            .on('transactionHash', console.log);
-    })
-    // }
+            web3js.eth.sendSignedTransaction('0x' + transaction.serialize().toString('hex'))
+                .on('transactionHash', console.log);
+        })
+    }
 }
 
 // Criar random para toAddresses
 function realizarVotosDasContasDeTeste() {
     console.log("Inicio da votação das contas")
 
-    // for (var i = 0; i < myAddresses.length; i++) {
+    for (var i = 0; i < myAddresses.length; i++) {
 
-    let fromAddress = myAddresses[0];
-    let toAddress = toAddresses[0];
-    let pk = privatesKeys[0];
+        let fromAddress = myAddresses[i];
+        let toAddress = toAddresses[i];
+        let index = getRandomInt(0, 4);
+        console.log("INDEX: " + index)
+        let pk = privatesKeys[index];
 
-    var count;
-    // get transaction count, later will used as nonce
-    web3js.eth.getTransactionCount(fromAddress).then(function (v) {
-        console.log("Count: " + v);
-        count = v;
+        var count;
+        // get transaction count, later will used as nonce
+        web3js.eth.getTransactionCount(fromAddress).then(function (v) {
+            console.log("Count: " + v);
+            count = v;
 
-        var privateKey = Buffer.from(pk, 'hex');
+            var privateKey = Buffer.from(pk, 'hex');
 
-        //creating raw transaction
-        var rawTransaction = {
-            "from": fromAddress, "gasPrice": web3js.utils.toHex(20 * 1e9), "gasLimit": web3js.utils.toHex(210000),
-            "to": contractAddress, "value": "0x0", "data": contract.methods.vote(toAddress).encodeABI(),
-            "nonce": 10000
-        }
-        console.log(rawTransaction);
+            //creating raw transaction
+            var rawTransaction = {
+                "from": fromAddress, "gasPrice": web3js.utils.toHex(20 * 1e9), "gasLimit": web3js.utils.toHex(210000),
+                "to": contractAddress, "value": "0x0", "data": contract.methods.vote(toAddress).encodeABI(),
+                "nonce": web3js.utils.toHex(count)
+            }
 
-        //creating transaction via ethereumjs-tx
-        var transaction = new Tx(rawTransaction);
-        //signing transaction with private key
-        transaction.sign(privateKey);
-        //sending transacton via web3js module
-        web3js.eth.sendSignedTransaction('0x' + transaction.serialize().toString('hex'))
-            .on('transactionHash', console.log);
-    })
+            console.log(rawTransaction);
 
-    // }
+            //creating transaction via ethereumjs-tx
+            var transaction = new Tx(rawTransaction);
+            //signing transaction with private key
+            transaction.sign(privateKey);
+            //sending transacton via web3js module
+            web3js.eth.sendSignedTransaction('0x' + transaction.serialize().toString('hex'))
+                .on('transactionHash', console.log);
+        })
+
+    }
 
 }
 
@@ -134,6 +135,12 @@ function aguarde(segundos) {
         var futuro = Date.now() + 1000
         while (Date.now() < futuro);
     }
+}
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
 }
 
 

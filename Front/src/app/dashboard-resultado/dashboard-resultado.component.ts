@@ -18,6 +18,8 @@ export class DashboardResultadoComponent implements OnInit {
   candidatos: Candidato[] = new Array()
   votos: Voto[]
 
+  totalDeVotos: number = 0
+
   interval: any
 
   // Options Chart
@@ -38,7 +40,6 @@ export class DashboardResultadoComponent implements OnInit {
 
   constructor(private web3Service: Web3Service, private ref: ChangeDetectorRef, private candidatoService: CandidatoService) {
     this.dataChart = new Array();
-    
 
     this.initialData()
   }
@@ -46,7 +47,7 @@ export class DashboardResultadoComponent implements OnInit {
   ngOnInit() {
     setTimeout(() => {
       this.recuperarEventoVoto()
-    }, 1000)
+    }, 2000)
 
   }
 
@@ -55,10 +56,10 @@ export class DashboardResultadoComponent implements OnInit {
       data => {
         console.log("Data")
         console.log(data)
-        
+
         data.forEach(candidato => {
           console.log(candidato['dadosCandidato'].contaBlockchainCandidato)
-          
+
           // this.candidatos.push(new Candidato(
           //   candidato['dadosCandidato'].contaBlockchainCandidato,
           //   candidato['dadosCandidato'].numero,
@@ -80,7 +81,7 @@ export class DashboardResultadoComponent implements OnInit {
 
           this.dataChart.push({
             name: candidato.nome,
-            value: "2"
+            value: "0"
           })
           console.log(this.candidatos)
           this.dataChart = [...this.dataChart]
@@ -123,10 +124,28 @@ export class DashboardResultadoComponent implements OnInit {
           hashTransacao: event.transactionHash
         }
 
+        self.totalDeVotos++
+
         self.votos.push(voto)
         self.ref.detectChanges()
+
+        self.atualizaResultado(voto.contaBlockchainDestino)
         console.log(self.votos)
       }
     })
+  }
+
+  // TODO: terminar
+  atualizaResultado(contaBlockchain: string) {
+    this.candidatos.forEach(candidato => {
+      if (candidato.contaBlockchain == contaBlockchain) {
+        this.dataChart.forEach(data => {
+          if (data.name == candidato.nome)
+            data.value = ((data.value * 1) + 1).toString()
+        })
+
+      }
+    });
+    this.dataChart = [...this.dataChart]
   }
 }

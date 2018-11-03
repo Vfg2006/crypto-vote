@@ -1,0 +1,6 @@
+  <div class="fingerprint">
+    <img class="foto-principal img-responsive" src="../assets/img/fingerprint.png">
+  </div>
+
+  <input class="uploadDigital" type="file" #fingerprint (change)="carregarDigital(fingerprint.files[0])" hidden />
+  <button class="btn btn-primary btn-fingerprint" (click)="fingerprint.click()">Inserir Digital</button>

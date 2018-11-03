@@ -2,11 +2,11 @@
 
   <div class="row">
     <div class="col-xs-1 col-sm-1">
-      <input class="form-control input-lg" formControlName="primeiroNumero" autocomplete="off" (keyup)="num2.focus()">
+      <input class="form-control input-lg" formControlName="primeiroNumero" autocomplete="off" (keyup)="num2.focus()" maxlength="1">
     </div>
 
     <div class="col-xs-1 col-sm-1">
-      <input #num2 class="form-control input-lg" formControlName="segundoNumero" autocomplete="off" (keyup)="buscarCandidato()">
+      <input #num2 class="form-control input-lg" formControlName="segundoNumero" autocomplete="off" (keyup)="buscarCandidato()" maxlength="1">
     </div>
   </div>
 

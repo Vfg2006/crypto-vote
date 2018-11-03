@@ -1,5 +1,4 @@
-<h2 class="text-center">{{ recebeCandidato.cargo }}(a)</h2>
-
+<!-- <h2 class="text-center">{{ recebeCandidato.cargo }}(a)</h2> -->
 <div class="box-body">
 
   <div class="row">
@@ -47,25 +46,5 @@
     </div>
   </div>
 
-  <div class="row box-btn-voto text-center">
-    <button class="btn btn-default btn-lg btn-voto" (click)="votarEmBranco()">BRANCO</button>
-    <button class="btn btn-danger btn-lg btn-voto" (click)="corrigir()">CORRIGE</button>
-    <button class="btn btn-success btn-lg btn-voto" (click)="open(content)">CONFIRMA</button>
-  </div>
-
-  <ng-template #content let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Aviso</h4>
-      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <p>Você deseja confirmar o seu voto ? </p>
-    </div>
-    <div class="modal-footer box-btn-voto">
-      <button type="button" class="btn btn-danger btn-voto" (click)="c('Save click')">Corrigir</button>
-      <button type="button" class="btn btn-success btn-voto" (click)="c('Save click'); votar()">Confirmar</button>
-    </div>
-  </ng-template>
+  
 </div>

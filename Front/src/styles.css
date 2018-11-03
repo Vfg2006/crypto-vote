@@ -28,15 +28,30 @@ body {
     background-color: #fff;
     text-align:center;
   }
-  .jumbotron h2 {
+.jumbotron h2 {
     font-size: 40px;
-  }
+}
   
-  .welcome-jumbotron h1 {
+.welcome-jumbotron h1 {
     margin-bottom: 60px;
-  }
+}
   
-  .welcome-jumbotron p {
+.welcome-jumbotron p {
     margin-bottom: 60px;
     font-size: 30px;
-  }
+}
+
+/* fingerprint */
+
+.fingerprint {
+    border: 1px solid black;
+    margin-top: 20px;
+}
+
+.btn-fingerprint {
+    margin-top: 10px;
+}
+
+.fingerprint, .btn-fingerprint {
+    width: 170px;
+}

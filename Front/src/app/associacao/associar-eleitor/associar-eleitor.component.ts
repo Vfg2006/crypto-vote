@@ -37,18 +37,23 @@ export class AssociarEleitorComponent implements OnInit {
     this.associaEleitorForm.get('contaBlockchain').setValue(this.recuperaContaSelecionada())
   }
 
-  carregarDigital(file) {
-    console.log(file)
-
-    let self = this
-
-    var fileReader = new FileReader();
-    fileReader.readAsText(file, "UTF-8");
-
-    fileReader.onload = function (e) {
-      self.pessoaFisica.impressaoDigital = fileReader.result.toString()
-    }
+  getDigital(event) {
+    console.log("GET DIGITAL")
+    console.log(event)
   }
+
+  // carregarDigital(file) {
+  //   console.log(file)
+
+  //   let self = this
+
+  //   var fileReader = new FileReader();
+  //   fileReader.readAsText(file, "UTF-8");
+
+  //   fileReader.onload = function (e) {
+  //     self.pessoaFisica.impressaoDigital = fileReader.result.toString()
+  //   }
+  // }
 
   createReactiveForms() {
     this.associaEleitorForm = this.formbuilder.group({

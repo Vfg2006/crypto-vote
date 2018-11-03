@@ -9,10 +9,10 @@
 		"partido": "PSC",
 		"numero": 10,
 		"cargo": "Prefeito",
-		"fotoPath": "../../assets/img/avatar1.png",
+		"fotoPath": "../../assets/img/pessoa_2.png",
 		"vice": {
 			"nome": "Manoela Costa",
-			"fotoPath": "../../assets/img/avatar2.png"
+			"fotoPath": "../../assets/img/pessoa_1.png"
 		}
 	}
 }
@@ -27,10 +27,10 @@
 		"partido": "PSB",
 		"numero": 20,
 		"cargo": "Prefeito",
-		"fotoPath": "../../assets/img/avatar2.png",
+		"fotoPath": "../../assets/img/pessoa_4.png",
 		"vice": {
 			"nome": "José Carlos",
-			"fotoPath": "../../assets/img/avatar1.png"
+			"fotoPath": "../../assets/img/pessoa_3.png"
 		}
 	}
 }
@@ -45,10 +45,10 @@
 		"partido": "PSDB",
 		"numero": 30,
 		"cargo": "Prefeito",
-		"fotoPath": "../../assets/img/avatar2.png",
+		"fotoPath": "../../assets/img/pessoa_6.png",
 		"vice": {
 			"nome": "Paulo Silva",
-			"fotoPath": "../../assets/img/avatar1.png"
+			"fotoPath": "../../assets/img/pessoa_5.png"
 		}
 	}
 }
@@ -63,10 +63,10 @@
 		"partido": "PMDB",
 		"numero": 40,
 		"cargo": "Prefeito",
-		"fotoPath": "../../assets/img/avatar2.png",
+		"fotoPath": "../../assets/img/pessoa_7.png",
 		"vice": {
 			"nome": "Diego Magalhães",
-			"fotoPath": "../../assets/img/avatar1.png"
+			"fotoPath": "../../assets/img/pessoa_8.png"
 		}
 	}
 }

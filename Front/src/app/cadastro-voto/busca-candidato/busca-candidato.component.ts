@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { VotoService } from '../voto.service';
 import { Candidato } from '../../model/candidato.model';
+import { ConstantesService } from '../../shared/ConstantesService';
 
 @Component({
     selector: 'vg-busca-candidato',
@@ -13,6 +14,7 @@ export class BuscaCandidatoComponent implements OnInit {
     buscaCandidatoForm: FormGroup
 
     @Output() candidato = new EventEmitter();
+    @Output() tipoVoto = new EventEmitter();
 
     constructor(private formbuilder: FormBuilder, private votoService: VotoService) { }
 
@@ -44,7 +46,10 @@ export class BuscaCandidatoComponent implements OnInit {
                         vice: data['dadosCandidato'].vice
                     });
                 } else {
-                  console.log("Não foi encontrado nenhum candidato com esse numero")
+                    console.log("Não foi encontrado nenhum candidato com esse numero")
+
+                    console.log("Voto NULO")
+                    this.tipoVoto.emit(ConstantesService.NULO)
                 }
             },
             (error) => {
