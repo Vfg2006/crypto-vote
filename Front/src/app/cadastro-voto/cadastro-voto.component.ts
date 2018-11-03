@@ -99,9 +99,7 @@ export class CadastroVotoComponent implements OnInit {
     let self = this
 
     let enderecoDoVoto
-
-    let audio = <HTMLAudioElement> document.getElementById('audio')
-    audio.play()
+    let audio = <HTMLAudioElement>document.getElementById('audio')
 
     if (this.candidato != undefined && this.tipoVoto == undefined) {
       enderecoDoVoto = this.candidato.contaBlockchain
@@ -122,6 +120,7 @@ export class CadastroVotoComponent implements OnInit {
               console.log(data)
 
               self.fim = true
+              audio.play()
             },
             (error) => {
               console.log("Erro ao realizar voto")
