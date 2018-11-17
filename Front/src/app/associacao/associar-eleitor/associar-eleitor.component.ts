@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { PessoaFisica } from '../../model/PessoaFisica.model';
 import { Web3Service } from '../../shared/Web3Service';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { NotificationsService, NotificationType } from 'angular2-notifications';
 
 @Component({
   selector: 'vg-associar-eleitor',
@@ -15,7 +16,7 @@ export class AssociarEleitorComponent implements OnInit {
   associaEleitorForm: FormGroup
 
   constructor(private formbuilder: FormBuilder, private web3Service: Web3Service,
-    private ref: ChangeDetectorRef) { }
+    private ref: ChangeDetectorRef, private _notifications: NotificationsService) { }
 
   ngOnInit() {
     this.pessoaFisica = new PessoaFisica();
@@ -42,19 +43,6 @@ export class AssociarEleitorComponent implements OnInit {
     console.log(event)
   }
 
-  // carregarDigital(file) {
-  //   console.log(file)
-
-  //   let self = this
-
-  //   var fileReader = new FileReader();
-  //   fileReader.readAsText(file, "UTF-8");
-
-  //   fileReader.onload = function (e) {
-  //     self.pessoaFisica.impressaoDigital = fileReader.result.toString()
-  //   }
-  // }
-
   createReactiveForms() {
     this.associaEleitorForm = this.formbuilder.group({
       impressaoDigital: [''],
@@ -76,7 +64,11 @@ export class AssociarEleitorComponent implements OnInit {
     this.web3Service.cadastra(this.pessoaFisica.impressaoDigital, false,
       (data) => {
         console.log(data)
-
+        if(data) {
+          this._notifications.create('Sucesso', 'O eleitor foi associado com sucesso', NotificationType.Success)
+        } else { 
+          this._notifications.create('Erro', 'Erro ao tentar associar o eleitor', NotificationType.Error)
+        }
     },
     (error) => {
       console.error(error)

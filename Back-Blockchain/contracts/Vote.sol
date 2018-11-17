@@ -12,7 +12,7 @@ contract Vote is TokenERC20(0, "CryptoVote", "CPT") {
     }
 
     mapping(address => Voter) public voters;
-    mapping(string => address) public addresses;
+    mapping(string => address) private addresses;
 
     constructor() public { }
 
@@ -50,7 +50,8 @@ contract Vote is TokenERC20(0, "CryptoVote", "CPT") {
         emit VoteConfirmed(msg.sender, addressCandidate, 1);
     }
 
-    function validaDigital(string fingerprint) public returns (bool) {
+    // TODO - Verificar se está funcionando
+    function validaDigital(string fingerprint) public view returns (bool) {
         address addressVoter = msg.sender;
         
         if(addressVoter == addresses[fingerprint])

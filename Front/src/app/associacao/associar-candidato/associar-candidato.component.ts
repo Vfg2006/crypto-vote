@@ -6,6 +6,7 @@ import { PessoaFisica } from '../../model/PessoaFisica.model';
 import { FileSelectDirective, FileUploader } from 'ng2-file-upload'
 import { ConstantesService } from '../../shared/ConstantesService';
 import { CandidatoService } from '../../shared/candidato.service';
+import { NotificationsService, NotificationType } from 'angular2-notifications';
 
 const URL = ConstantesService.serverUrl + "upload"
 
@@ -26,7 +27,7 @@ export class AssociarCandidatoComponent implements OnInit {
   viceFotoPath: any
 
   constructor(private formbuilder: FormBuilder, private web3Service: Web3Service,
-    private ref: ChangeDetectorRef, private candidatoService: CandidatoService) { }
+    private ref: ChangeDetectorRef, private candidatoService: CandidatoService, private _notifications: NotificationsService) { }
 
   ngOnInit() {
     this.pessoaFisica = new PessoaFisica();
@@ -107,6 +108,11 @@ export class AssociarCandidatoComponent implements OnInit {
     self.candidatoService.associarCandidato(self.pessoaFisica).subscribe(
       data => {
         console.log(data)
+        if(data) {
+          this._notifications.create('Sucesso', 'O candidato foi associado com sucesso', NotificationType.Success)
+        } else { 
+          this._notifications.create('Erro', 'Erro ao tentar associar o candidato', NotificationType.Error)
+        }
       },
       error => {
         console.error(error)

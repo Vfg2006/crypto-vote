@@ -5,9 +5,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FileUploadModule } from 'ng2-file-upload';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 import { ROUTES } from './app.routes'
 
@@ -57,7 +58,8 @@ import { ConfirmaBrancoNuloComponent } from './cadastro-voto/confirma-branco-nul
     NgbModule.forRoot(),
     FileUploadModule,
     NgxChartsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    SimpleNotificationsModule.forRoot()
   ],
   providers: [{provide: LOCALE_ID, useValue: 'pt-BR'}, VotoService, Web3Service, CandidatoService, ConstantesService],
   bootstrap: [AppComponent]

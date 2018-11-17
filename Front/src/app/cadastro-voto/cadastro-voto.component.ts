@@ -3,6 +3,7 @@ import { Candidato } from '../model/candidato.model';
 import { Web3Service } from '../shared/Web3Service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ConstantesService } from '../shared/ConstantesService';
+import { NotificationType, NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'vg-cadastro-voto',
@@ -22,7 +23,7 @@ export class CadastroVotoComponent implements OnInit {
 
   fim: boolean = false
 
-  constructor(private web3Service: Web3Service, private modalService: NgbModal) { }
+  constructor(private web3Service: Web3Service, private modalService: NgbModal, private _notifications: NotificationsService) { }
 
   ngOnInit() {
   }
@@ -109,6 +110,9 @@ export class CadastroVotoComponent implements OnInit {
       enderecoDoVoto = ConstantesService.ENDERECO_NULO
     }
 
+
+
+
     // TODO: validar digital com dados da blockchain
     this.web3Service.validaDigital(this.impressaoDigital,
       (result) => {
@@ -119,8 +123,14 @@ export class CadastroVotoComponent implements OnInit {
             (data) => {
               console.log(data)
 
-              self.fim = true
-              audio.play()
+              if (data) {
+                this._notifications.create('Sucesso', 'O seu voto foi realizado com sucesso', NotificationType.Success)
+                self.fim = true
+                audio.play()
+              } else {
+                this._notifications.create('Erro', 'Erro ao realizar o seu voto', NotificationType.Error)
+              }
+
             },
             (error) => {
               console.log("Erro ao realizar voto")
@@ -128,6 +138,7 @@ export class CadastroVotoComponent implements OnInit {
             })
         } else {
           console.log("Digital Inválida")
+          this._notifications.create('Erro', 'Impressão digital inválida', NotificationType.Error)
         }
 
       },

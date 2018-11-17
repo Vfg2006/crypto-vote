@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+
+  public optionsNotifications = {
+    timeOut: 5000,
+    showProgressBar: false,
+    pauseOnHover: true,
+    clickToClose: true,
+    animate: 'fromRight'
+  }
 }
