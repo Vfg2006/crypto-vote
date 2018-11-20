@@ -71,7 +71,7 @@ export class CadastroVotoComponent implements OnInit {
   }
 
   getDigital(event) {
-    console.log("GET DIGITAL")
+    console.log("IMPRESSÃO DIGITAL CAPTURADA")
     console.log(event)
 
     this.impressaoDigital = event

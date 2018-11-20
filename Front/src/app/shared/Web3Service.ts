@@ -3,6 +3,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ConstantesService } from './ConstantesService';
 import { formattedError } from '@angular/compiler';
 
+import * as CryptoJS from 'crypto-js';
+
 @Injectable()
 export class Web3Service {
 
@@ -93,7 +95,7 @@ export class Web3Service {
         // });
 
         console.log("INICIALIZOU O WEB3 - VoteContract abaixo");
-        console.log(this.voteContract);
+        // console.log(this.voteContract);
     }
 
     get isConnected(): boolean {
@@ -147,6 +149,8 @@ export class Web3Service {
         fSuccess: any, fError: any): void {
         console.log("Web3Service - Associa eleitor")
 
+        fingerprint = this.criptografarFingerprint(fingerprint)
+
         this.voteContract.registerVoter(fingerprint, isCandidato, { from: this.web3.eth.accounts[0], gas: 500000 },
             (error, result) => {
                 if (error) fError(error);
@@ -167,6 +171,8 @@ export class Web3Service {
     validaDigital(fingerprint: string, fSuccess: any, fError: any): void {
         console.log("Web3Service - Validar Digital")
 
+        fingerprint = this.criptografarFingerprint(fingerprint)
+
         this.voteContract.validaDigital(fingerprint, { gas: 500000 },
             (error, result) => {
                 if (error) fError(error);
@@ -174,14 +180,34 @@ export class Web3Service {
             });
     }
 
-    getTotalSupply(fSuccess: any, fError: any): number {
-        console.log("vai recuperar o totalsupply. ");
-        let self = this;
-        return this.voteContract.getTotalSupply(
-            (error, totalSupply) => {
+    criptografarFingerprint(fingerprint: string) {
+        var fingerprintEncrypted = CryptoJS.SHA512(fingerprint)
+
+        console.log("IMPRESSÃO DIGITAL CRIPTOGRAFADA")
+        console.log(fingerprintEncrypted.toString())
+
+        return fingerprintEncrypted.toString()
+    }
+
+    // getTotalSupply(fSuccess: any, fError: any): number {
+    //     console.log("Vai recuperar o totalsupply. ");
+    //     let self = this;
+    //     return this.voteContract.getTotalSupply(
+    //         (error, totalSupply) => {
+    //             if (error) fError(error);
+    //             // else fSuccess( self.converteInteiroParaDecimal(  parseInt ( totalSupply ) ) );
+    //         });
+    // }
+
+    getBalanceOf(address: string, fSuccess: any, fError: any): number {
+        console.log("Vai recuperar a quantidade de votos de " + address);
+        
+        return this.voteContract.getBalanceOf(address,
+            (error, qtdVotos) => {
                 if (error) fError(error);
-                // else fSuccess( self.converteInteiroParaDecimal(  parseInt ( totalSupply ) ) );
+                else fSuccess(qtdVotos);
             });
+
     }
 
     // getAddressOwner(fSuccess: any, fError: any): number {

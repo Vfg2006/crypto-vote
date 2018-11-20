@@ -15,8 +15,6 @@ export class FingerprintComponent implements OnInit {
   }
 
   carregarDigital(file) {
-    console.log(file)
-
     let self = this
 
     var fileReader = new FileReader();

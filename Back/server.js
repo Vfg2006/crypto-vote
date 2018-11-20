@@ -66,8 +66,8 @@ var accounts;
 console.log("config.infra.rede_blockchain (4=Rinkeby|4447=local) = " + config.infra.rede_blockchain);
 
 ABI = contratoJson['abi']
-console.log(contratoJson)
-console.log("abi = ", ABI)
+// console.log(contratoJson)
+// console.log("abi = ", ABI)
 
 let addrContrato;
 if (config.infra.rede_blockchain == 4) { //Rinkeby 

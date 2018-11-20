@@ -4,9 +4,9 @@
   </h1>
 </section>
 
-<section class="content" *ngIf="votos">
+<!-- <section class="content" *ngIf="votos">
   <h4>O Dashboard ainda não está em funcionamento..</h4>
-</section>
+</section> -->
 
 <section class="content" >
   <div class="grafico-barra">
@@ -15,9 +15,6 @@
       [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [barPadding]="50" [animations]="animations">
       <!-- (select)="onSelect($event)" -->
     </ngx-charts-bar-vertical>
-
-    <button (click)="startLiveData()">Start Live Data</button>
-    <button (click)="stopLiveData()">Stop Live Data</button>
   </div>
 
   <div class="box box-primary">

@@ -3,6 +3,7 @@ import { Web3Service } from '../shared/Web3Service';
 import { Voto } from '../model/voto.model';
 import { CandidatoService } from '../shared/candidato.service';
 import { Candidato } from '../model/candidato.model';
+import { ConstantesService } from '../shared/ConstantesService';
 
 @Component({
   selector: 'vg-dashboard-resultado',
@@ -81,29 +82,21 @@ export class DashboardResultadoComponent implements OnInit {
 
           this.dataChart.push({
             name: candidato.nome,
-            value: "0"
+            value: 0
           })
           console.log(this.candidatos)
           this.dataChart = [...this.dataChart]
         });
+
+        this.dataChart.push({
+          name: "Branco/Nulo",
+          value: 0
+        })
       },
       error => {
         console.log(error)
       }
     )
-  }
-
-  startLiveData() {
-
-    this.interval = setInterval(() => {
-      this.dataChart[1].value = (this.dataChart[1].value * 1) + 1
-
-      this.dataChart = [...this.dataChart]
-    }, 5000)
-  }
-
-  stopLiveData() {
-    clearInterval(this.interval);
   }
 
   recuperarEventoVoto() {
@@ -129,23 +122,62 @@ export class DashboardResultadoComponent implements OnInit {
         self.votos.push(voto)
         self.ref.detectChanges()
 
-        self.atualizaResultado(voto.contaBlockchainDestino)
+        self.atualizaResultado()
         console.log(self.votos)
       }
     })
   }
 
   // TODO: terminar
-  atualizaResultado(contaBlockchain: string) {
-    this.candidatos.forEach(candidato => {
-      if (candidato.contaBlockchain == contaBlockchain) {
-        this.dataChart.forEach(data => {
-          if (data.name == candidato.nome)
-            data.value = ((data.value * 1) + 1).toString()
-        })
+  atualizaResultado() {
+    let self = this
 
-      }
+    // Candidatos
+    this.candidatos.forEach(candidato => {
+      this.web3Service.getBalanceOf(candidato.contaBlockchain,
+        (result) => {
+          if (result) {
+            self.dataChart.forEach(data => {
+              if (data.name == candidato.nome) {
+                data.value = result
+              }
+            })
+          } else {
+            console.log("Erro ao ler a quantidade de votos da conta " + candidato.contaBlockchain)
+          }
+
+          self.dataChart = [...self.dataChart]
+        },
+        (error) => {
+          console.log("Erro ao ler a quantidade de votos da conta " + candidato.contaBlockchain)
+          console.log(error)
+        });
     });
-    this.dataChart = [...this.dataChart]
+
+    // Branco/Nulo
+    let contasBrancoENulo = [ConstantesService.ENDERECO_BRANCO, ConstantesService.ENDERECO_NULO]
+
+    contasBrancoENulo.forEach(conta => {
+      this.web3Service.getBalanceOf(conta,
+        (result) => {
+          if (result) {
+            console.log("votos branco e nulo")
+            console.log(result)
+
+            self.dataChart[self.dataChart.length - 1].value = parseInt(self.dataChart[self.dataChart.length - 1].value) + parseInt(result)
+
+            console.log(self.dataChart[self.dataChart.length - 1])
+          } else {
+            console.log("Erro ao ler a quantidade de votos da conta " + conta)
+          }
+
+          self.dataChart = [...self.dataChart]
+        },
+        (error) => {
+          console.log("Erro ao ler a quantidade de votos da conta " + conta)
+          console.log(error)
+        });
+    })
+
   }
 }

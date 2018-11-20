@@ -38,9 +38,10 @@ export class AssociarEleitorComponent implements OnInit {
     this.associaEleitorForm.get('contaBlockchain').setValue(this.recuperaContaSelecionada())
   }
 
-  getDigital(event) {
-    console.log("GET DIGITAL")
-    console.log(event)
+  getDigital(impressaoDigital) {
+    console.log("IMPRESSÃO DIGITAL CAPTURADA")
+    console.log(impressaoDigital)
+    this.pessoaFisica.impressaoDigital = impressaoDigital
   }
 
   createReactiveForms() {
@@ -51,7 +52,6 @@ export class AssociarEleitorComponent implements OnInit {
   }
 
   criarPessoaFisica() {
-    this.pessoaFisica.impressaoDigital = this.associaEleitorForm.get('impressaoDigital').value
     this.pessoaFisica.contaBlockchain = this.recuperaContaSelecionada()
   }
 
@@ -60,6 +60,8 @@ export class AssociarEleitorComponent implements OnInit {
     let self = this
 
     this.criarPessoaFisica()
+
+    console.log(this.pessoaFisica)
 
     this.web3Service.cadastra(this.pessoaFisica.impressaoDigital, false,
       (data) => {
@@ -72,6 +74,7 @@ export class AssociarEleitorComponent implements OnInit {
     },
     (error) => {
       console.error(error)
+      this._notifications.create('Erro', 'Erro ao tentar associar o eleitor', NotificationType.Error)
     })
   }
 }
