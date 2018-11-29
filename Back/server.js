@@ -80,75 +80,7 @@ else {
 }
 
 console.log("endereco do contrato=" + addrContrato);
-// console.info("endereco_websocket", endereco_websocket);
 
-// if (1 == 2) {
-// 	instanciaWeb3eSmartC()
-// 	let bloco = 1;
-
-// 	console.log("/api/liberacao/eventos/from :: bloco = ", bloco);
-
-// 	smartContract
-// 		.getPastEvents('Liberacao', { fromBlock: bloco })
-// 		.then(events => { console.info('getPastEvents', events); })
-// }
-
-// if (1 == 2) {
-// 	instanciaWeb3eSmartC()
-// 	console.log("/api/liberacao/eventos");
-
-// 	smartContract.events
-// 		.Liberacao()
-// 		.on('data', event => { console.info('data', event); })
-// 		.on('error', event => { console.info('data', event); })
-// 		.on('changed', event => { console.info('data', event); })
-// }
-
-// // Exemplo de como seria o node fazer chamadas ao smartcontract
-// function instanciaWeb3eSmartC() {
-// 	console.log("endereco_websocket" + endereco_websocket)
-// 	console.log("ABI" + ABI)
-// 	console.log("addrContrato" + addrContrato)
-// 	var provedor = new Web3.providers.WebsocketProvider(endereco_websocket)
-
-// 	/* Trecho comentado porque a biblioteca scrypt precisa ser compilada qdo faz o npm install (inviavel no servidor do bndes)
-// 	web3 = new Web3( provedor )
-// 	smartContract = new web3.eth.Contract( ABI, addrContrato )
-// 	// caso seja metodo de leitura use o call - https://web3js.readthedocs.io/en/1.0/web3-eth-contract.html#id16
-// 	// senao, use o send
-// 	if (1==2) {
-// 		smartContract.methods.getVersao().call( function(error, result){ 
-// 			if (error) console.log("Backend - associaContaCliente - instanciaWeb3eSmartC - erro " + error );
-// 			if (result) console.log("Backend - associaContaCliente - instanciaWeb3eSmartC - OK " + result );
-// 		});
-// 	}
-// 	if (1==2) {
-// 		smartContract.methods.setTotalSupply(1)
-// 					.send( { from: "0xd636349f5D7E03037e0f224c9B1AC3cCf104f4a5", gas: 500000 }, function(error, transactionHash){ 
-// 			if (error) console.log("Backend - associaContaCliente - setTotalSupply - erro " + error );
-// 			if (transactionHash) console.log("Backend - associaContaCliente - setTotalSupply - OK " + transactionHash );
-// 		});
-// 	}
-// 	*/
-// }
-// function web3BuscaAccounts() {
-// 	if (accounts === undefined || accounts === null) {
-// 		web3.eth.getAccounts().then(accounts => {
-// 			console.log("Backend - associaContaCliente - a[] " + accounts)
-// 		}
-// 		);
-// 	}
-
-// }
-// function web3BuscaAccount(indice) {
-// 	if (accounts === undefined || accounts === null) {
-// 		web3.eth.getAccounts().then(accounts => {
-// 			console.log("Backend - associaContaCliente - a[" + indice + "] " + accounts[indice])
-// 		}
-// 		);
-// 	}
-
-// }
 
 app.get('/api/abi', function (req, res) {
 	res.json(contratoJson);

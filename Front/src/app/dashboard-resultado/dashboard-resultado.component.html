@@ -8,13 +8,45 @@
   <h4>O Dashboard ainda não está em funcionamento..</h4>
 </section> -->
 
-<section class="content" >
+<section class="content">
   <div class="grafico-barra">
     <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="dataChart" [gradient]="gradient" [xAxis]="showXAxis"
       [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
       [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [barPadding]="50" [animations]="animations">
       <!-- (select)="onSelect($event)" -->
     </ngx-charts-bar-vertical>
+  </div>
+
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">
+        Dados
+      </h3>
+    </div>
+
+    <div class="box-body">
+      <div class="row">
+        <div class="col">
+          <h4> Total de votos válidos: {{ votosValidos }}</h4>
+          <ul *ngFor="let data of dataChart; let i = index;">
+            <li *ngIf="i != (dataChart.length - 1)">{{ data.name }}: {{ ((data.value * 100) / totalDeVotos).toFixed(2) }} %</li>
+          </ul>
+        </div>
+
+        <div class="col">
+          <h4> Total de votos inválidos: {{ votosInvalidos }}</h4>
+          <ul *ngFor="let data of dataChart; let i = index;">
+            <li *ngIf="i == (dataChart.length - 1)">{{ data.name }}: {{ ((data.value * 100) / totalDeVotos).toFixed(2) }} %</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <h4> Total de votos no geral: {{ totalDeVotos }}</h4>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="box box-primary">
@@ -27,30 +59,39 @@
     <div class="box-body">
       <div class="box-candidatos">
         <div *ngFor="let candidato of candidatos">
-          <div class="circle">
-            <ng-template #conta><b>{{ candidato.contaBlockchain }}</b></ng-template>
-            <img [src]="candidato.fotoPath" placement="bottom" [ngbTooltip]="conta">
+          <div class="circle" placement="bottom" [ngbTooltip]="conta">
+            <ng-template #conta>
+              <p class="conta-tooltip"><b>{{ candidato.contaBlockchain }}</b></p>
+            </ng-template>
+            <img [src]="candidato.fotoPath">
           </div>
           <div class="text-center">
             <p>{{ candidato.nome }}
               {{ candidato.partido}}</p>
           </div>
         </div>
+
+        <div>
+          <div class="circle" placement="bottom" [ngbTooltip]="contaNB">
+            <ng-template #contaNB>
+              <p class="conta-tooltip"><b>{{ contasBrancoENulo[0] }}</b></p>
+              <p class="conta-tooltip"><b>{{ contasBrancoENulo[1] }}</b></p>
+            </ng-template>
+            <img src="assets/img/bn.png">
+          </div>
+          <div class="text-center">
+            <p>Brancos/Nulos</p>
+          </div>
+        </div>
       </div>
-
-
     </div>
-
-
   </div>
 
   <div class="box box-primary">
     <div class="box-header with-border">
-
       <h3 class="box-title">
         Resultados da Votação
       </h3>
-
     </div>
 
     <div class="box-body">

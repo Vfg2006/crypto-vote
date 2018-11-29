@@ -111,18 +111,18 @@ export class CadastroVotoComponent implements OnInit {
     }
 
 
-
-
     // TODO: validar digital com dados da blockchain
     this.web3Service.validaDigital(this.impressaoDigital,
       (result) => {
         console.log(result)
+        this._notifications.create('Sucesso', 'Impressão digital correta!', NotificationType.Success)
 
         if (result) {
           self.web3Service.votar(enderecoDoVoto,
             (data) => {
+              console.log("Hash da transação de votação")
               console.log(data)
-
+              
               if (data) {
                 this._notifications.create('Sucesso', 'O seu voto foi realizado com sucesso', NotificationType.Success)
                 self.fim = true

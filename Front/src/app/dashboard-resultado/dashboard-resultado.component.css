@@ -68,3 +68,14 @@
 p {
     white-space: pre-line;
 }
+
+.conta-tooltip {
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 10px !important;
+}
+
+h4 {
+    font-weight: 600;
+}

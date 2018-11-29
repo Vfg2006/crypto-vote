@@ -12,20 +12,20 @@ import { ConstantesService } from '../shared/ConstantesService';
 })
 export class DashboardResultadoComponent implements OnInit {
 
-  dataChart: any[] = new Array()
+  contasBrancoENulo = [ConstantesService.ENDERECO_BRANCO, ConstantesService.ENDERECO_NULO]
 
-  multi: any[] = new Array()
+  dataChart: any[] = new Array()
 
   candidatos: Candidato[] = new Array()
   votos: Voto[]
 
+  votosValidos: number = 0
+  votosInvalidos: number = 0
   totalDeVotos: number = 0
-
-  interval: any
 
   // Options Chart
   view: any[] = [1000, 250]
-  animations = true
+  animations = false
   showXAxis = true
   showYAxis = true
   gradient = false
@@ -48,6 +48,7 @@ export class DashboardResultadoComponent implements OnInit {
   ngOnInit() {
     setTimeout(() => {
       this.recuperarEventoVoto()
+      this.atualizaResultado()
     }, 2000)
 
   }
@@ -86,6 +87,7 @@ export class DashboardResultadoComponent implements OnInit {
           })
           console.log(this.candidatos)
           this.dataChart = [...this.dataChart]
+
         });
 
         this.dataChart.push({
@@ -101,15 +103,11 @@ export class DashboardResultadoComponent implements OnInit {
 
   recuperarEventoVoto() {
 
-    this.votos = []
-
     let self = this
+    this.votos = []
 
     this.web3Service.recuperarEventVote(function (err, event) {
       if (!err) {
-
-        console.log(event)
-
         let voto = {
           contaBlockchainOrigem: event.args._addressVoter,
           contaBlockchainDestino: event.args._addressCandidate,
@@ -122,7 +120,6 @@ export class DashboardResultadoComponent implements OnInit {
         self.votos.push(voto)
         self.ref.detectChanges()
 
-        self.atualizaResultado()
         console.log(self.votos)
       }
     })
@@ -136,10 +133,13 @@ export class DashboardResultadoComponent implements OnInit {
     this.candidatos.forEach(candidato => {
       this.web3Service.getBalanceOf(candidato.contaBlockchain,
         (result) => {
+
           if (result) {
             self.dataChart.forEach(data => {
               if (data.name == candidato.nome) {
-                data.value = result
+                console.log("voto candidato")
+                data.value = parseInt(result)
+                self.votosValidos += parseInt(result)
               }
             })
           } else {
@@ -147,6 +147,7 @@ export class DashboardResultadoComponent implements OnInit {
           }
 
           self.dataChart = [...self.dataChart]
+
         },
         (error) => {
           console.log("Erro ao ler a quantidade de votos da conta " + candidato.contaBlockchain)
@@ -155,18 +156,15 @@ export class DashboardResultadoComponent implements OnInit {
     });
 
     // Branco/Nulo
-    let contasBrancoENulo = [ConstantesService.ENDERECO_BRANCO, ConstantesService.ENDERECO_NULO]
-
-    contasBrancoENulo.forEach(conta => {
+    this.contasBrancoENulo.forEach(conta => {
       this.web3Service.getBalanceOf(conta,
         (result) => {
           if (result) {
-            console.log("votos branco e nulo")
+            console.log("votos branco")
             console.log(result)
 
-            self.dataChart[self.dataChart.length - 1].value = parseInt(self.dataChart[self.dataChart.length - 1].value) + parseInt(result)
-
-            console.log(self.dataChart[self.dataChart.length - 1])
+            self.dataChart[self.dataChart.length - 1].value += parseInt(result)
+            self.votosInvalidos += parseInt(result)
           } else {
             console.log("Erro ao ler a quantidade de votos da conta " + conta)
           }
@@ -178,6 +176,5 @@ export class DashboardResultadoComponent implements OnInit {
           console.log(error)
         });
     })
-
   }
 }

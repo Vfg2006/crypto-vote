@@ -40,8 +40,6 @@ contract Vote is TokenERC20(0, "CryptoVote", "CPT") {
 
         require(!sender.voted, "Already voted.");
 
-        require(!sender.isCandidate, "Is Candidate.");
-        
         sender.voted = true;
         sender.candidate = addressCandidate;
 
@@ -50,7 +48,8 @@ contract Vote is TokenERC20(0, "CryptoVote", "CPT") {
         emit VoteConfirmed(msg.sender, addressCandidate, 1);
     }
 
-    // TODO - Verificar se está funcionando
+    /* Valida a digital passada com o endereço blockchain selecionado no metamask */
+
     function validaDigital(string fingerprint) public view returns (bool) {
         address addressVoter = msg.sender;
         
