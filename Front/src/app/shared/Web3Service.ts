@@ -15,7 +15,6 @@ export class Web3Service {
     private defaultNodeIP: string = 'MetaMask';                    // Default node
     private nodeIP: string;                                        // Current nodeIP
     private nodeConnected: boolean = true;                         // If we've established a connection yet
-    private adding: boolean = false;                               // If we're adding a question
     private web3Instance: any;                                     // Current instance of web3
 
     private voteContract: any;
@@ -23,26 +22,11 @@ export class Web3Service {
     // Application Binary Interface so we can use the question contract
     private ABI
 
-    private vetorTxJaProcessadas: any[];
-
-    // private eventoCadastro: any;
-    // private eventoLiberacao: any;
-    // private eventoTransferencia: any;
-    // private eventoRepasse: any;
-    // private eventoResgate: any;
-    // private eventoLiquidacaoResgate: any;
-    // private eventoLog: any[];
-
     private eventoVoto: any
 
     private addressOwner: string;
 
-    // private decimais : number;
-
     constructor(private http: HttpClient, private constantes: ConstantesService) {
-
-        // this.eventoLog = [ {length: 6} ];
-        this.vetorTxJaProcessadas = [];
 
         this.serverUrl = ConstantesService.serverUrl;
         // console.log("Web3Service.ts :: Selecionou URL = " + this.serverUrl)
@@ -57,7 +41,6 @@ export class Web3Service {
                     data => {
                         this.ABI = data['abi'];
                         this.intializeWeb3();
-                        // this.inicializaQtdDecimais();
                     },
                     error => {
                         console.log("Erro ao buscar ABI do contrato")
@@ -84,15 +67,6 @@ export class Web3Service {
         }
 
         this.voteContract = this.web3.eth.contract(this.ABI).at(this.contractAddr);
-
-        let self = this;
-
-        // this.getAddressOwner(function (addrOwner) {
-        //     console.log("addOwner=" + addrOwner);
-        //     self.addressOwner = addrOwner;
-        // }, function (error) {
-        //     console.log("Erro ao buscar owner=" + error);
-        // });
 
         console.log("INICIALIZOU O WEB3 - VoteContract abaixo");
         // console.log(this.voteContract);
@@ -132,10 +106,6 @@ export class Web3Service {
         return window['Web3'];
     }
 
-    get addingQuestion(): boolean {
-        return this.adding;
-    }
-
     recuperarEventVote(callback) {
         this.eventoVoto = this.voteContract.VoteConfirmed({}, { fromBlock: 0, toBlock: 'latest' })
         this.eventoVoto.watch(callback)
@@ -145,13 +115,13 @@ export class Web3Service {
         return this.web3.eth.accounts[0];
     }
 
-    cadastra(fingerprint: string, isCandidato: boolean,
+    cadastra(fingerprint: string,
         fSuccess: any, fError: any): void {
         console.log("Web3Service - Associa eleitor")
 
         fingerprint = this.criptografarFingerprint(fingerprint)
 
-        this.voteContract.registerVoter(fingerprint, isCandidato, { from: this.web3.eth.accounts[0], gas: 500000 },
+        this.voteContract.registerVoter(fingerprint, { from: this.web3.eth.accounts[0], gas: 500000 },
             (error, result) => {
                 if (error) fError(error);
                 else fSuccess(result);
@@ -189,19 +159,9 @@ export class Web3Service {
         return fingerprintEncrypted.toString()
     }
 
-    // getTotalSupply(fSuccess: any, fError: any): number {
-    //     console.log("Vai recuperar o totalsupply. ");
-    //     let self = this;
-    //     return this.voteContract.getTotalSupply(
-    //         (error, totalSupply) => {
-    //             if (error) fError(error);
-    //             // else fSuccess( self.converteInteiroParaDecimal(  parseInt ( totalSupply ) ) );
-    //         });
-    // }
-
     getBalanceOf(address: string, fSuccess: any, fError: any): number {
         console.log("Vai recuperar a quantidade de votos de " + address);
-        
+
         return this.voteContract.getBalanceOf(address,
             (error, qtdVotos) => {
                 if (error) fError(error);
@@ -210,67 +170,4 @@ export class Web3Service {
 
     }
 
-    // getAddressOwner(fSuccess: any, fError: any): number {
-    //     return this.voteContract.getOwner(
-    //         (error, result) => {
-    //             if (error) fError(error);
-    //             else fSuccess(result);
-    //         });
-    // }
-
-    getAddressOwnerCacheble() {
-        return this.addressOwner;
-    }
-
-    // inicializaQtdDecimais() {
-    //     let self = this;
-    //     this.voteContract.getDecimals(
-    //         (error, result) => {
-    //             if (error) { 
-    //                 console.log( "Decimais: " +  error);  
-    //                 self.decimais = -1 ;
-    //             } 
-    //             else {
-    //                 console.log ( "Decimais: " +  result.c[0] );
-    //                 self.decimais = result.c[0] ;
-    //             }
-
-    //         }); 
-    // }
-
-    // converteDecimalParaInteiro( _x : number ): number {
-    //     return ( _x * ( 10 ** this.decimais ) ) ;
-    // }
-
-    // converteInteiroParaDecimal( _x: number ): number {    
-    //     return ( _x / ( 10 ** this.decimais ) ) ;
-    // }
-
-    conexaoComBlockchainEstaOK() {
-        try {
-            let contaBlockchain = this.recuperaContaSelecionada();
-            //console.log( "recuperaContaSelecionada = " + contaBlockchain );
-            if (contaBlockchain != undefined)
-                return true;
-            else
-                throw new Error('Conta nao definida');
-        } catch (e) {
-            //throw e;
-            return false;
-            //console.log("nao conseguiu recuperar conta no web3/metamask");
-        }
-    }
-
-
-    getBlockTimestamp(blockHash: number, fResult: any) {
-        this.web3.eth.getBlock(blockHash, fResult);
-    }
-
-    // accountIsActive(address: string, fSuccess: any, fError: any): boolean {
-    //     return this.voteContract.accountIsActive(address, 
-    //     (error, result) => {
-    //         if(error) fError(error);
-    //         else fSuccess(result);
-    //     });
-    // }
 }

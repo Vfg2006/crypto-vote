@@ -101,10 +101,6 @@ export class AssociarCandidatoComponent implements OnInit {
 
     this.criarPessoaFisica()
 
-    // this.web3Service.cadastra(this.pessoaFisica.impressaoDigital, true,
-    //   (data) => {
-    //     console.log(data)
-
     self.candidatoService.associarCandidato(self.pessoaFisica).subscribe(
       data => {
         console.log(data)
@@ -118,9 +114,5 @@ export class AssociarCandidatoComponent implements OnInit {
         console.error(error)
       }
     )
-    // },
-    // (error) => {
-    //   console.error(error)
-    // })
   }
 }

@@ -62,15 +62,6 @@ export class DashboardResultadoComponent implements OnInit {
         data.forEach(candidato => {
           console.log(candidato['dadosCandidato'].contaBlockchainCandidato)
 
-          // this.candidatos.push(new Candidato(
-          //   candidato['dadosCandidato'].contaBlockchainCandidato,
-          //   candidato['dadosCandidato'].numero,
-          //   candidato.nome,
-          //   candidato['dadosCandidato'].partido,
-          //   candidato['dadosCandidato'].cargo,
-          //   candidato['dadosCandidato'].fotoPath,
-          //   candidato['dadosCandidato'].vice
-          // ))
           this.candidatos.push({
             contaBlockchain: candidato['dadosCandidato'].contaBlockchainCandidato,
             numero: candidato['dadosCandidato'].numero,
@@ -125,7 +116,6 @@ export class DashboardResultadoComponent implements OnInit {
     })
   }
 
-  // TODO: terminar
   atualizaResultado() {
     let self = this
 

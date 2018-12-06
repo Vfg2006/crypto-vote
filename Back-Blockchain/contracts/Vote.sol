@@ -6,7 +6,6 @@ contract Vote is TokenERC20(0, "CryptoVote", "CPT") {
 
     struct Voter {
         string fingerprint;
-        bool isCandidate;
         address candidate; // TODO Verificar importância
         bool voted;
     }
@@ -21,12 +20,17 @@ contract Vote is TokenERC20(0, "CryptoVote", "CPT") {
 
     /* Associa um eleitor a uma conta blockchain */
 
-    function registerVoter(string _fingerprint, bool _isCandidate) public {
+    function registerVoter(string _fingerprint) public {
         address addressVoter = msg.sender;
+        bytes memory fingerprint = bytes(_fingerprint);
 
-        require(voters[addressVoter].candidate == 0x0);
+        require(fingerprint.length != 0, "Missing fingerprint");
 
-        voters[addressVoter] = Voter(_fingerprint, _isCandidate, 0x0, false);
+        require(addresses[_fingerprint] == 0x0, "fingerprint already associated");
+
+        require(voters[addressVoter].candidate == 0x0, "has an associate candidate");
+
+        voters[addressVoter] = Voter(_fingerprint, 0x0, false);
         addresses[_fingerprint] = addressVoter;
         balanceOf[addressVoter] = 1;
 

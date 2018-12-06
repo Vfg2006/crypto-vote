@@ -4,16 +4,11 @@
   </h1>
 </section>
 
-<!-- <section class="content" *ngIf="votos">
-  <h4>O Dashboard ainda não está em funcionamento..</h4>
-</section> -->
-
 <section class="content">
   <div class="grafico-barra">
     <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="dataChart" [gradient]="gradient" [xAxis]="showXAxis"
       [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
       [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [barPadding]="50" [animations]="animations">
-      <!-- (select)="onSelect($event)" -->
     </ngx-charts-bar-vertical>
   </div>
 

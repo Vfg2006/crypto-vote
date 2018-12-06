@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Candidato } from '../model/candidato.model';
 import { Web3Service } from '../shared/Web3Service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
@@ -110,14 +110,15 @@ export class CadastroVotoComponent implements OnInit {
       enderecoDoVoto = ConstantesService.ENDERECO_NULO
     }
 
-
-    // TODO: validar digital com dados da blockchain
+    // Validar a digital de acordo com o endereço blockchain selecionado no metamask
     this.web3Service.validaDigital(this.impressaoDigital,
       (result) => {
         console.log(result)
-        this._notifications.create('Sucesso', 'Impressão digital correta!', NotificationType.Success)
 
         if (result) {
+          this._notifications.create('Sucesso', 'Impressão digital correta!', NotificationType.Success)
+
+          // Votar
           self.web3Service.votar(enderecoDoVoto,
             (data) => {
               console.log("Hash da transação de votação")

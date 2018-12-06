@@ -11,7 +11,7 @@ import { NotificationsService, NotificationType } from 'angular2-notifications';
 })
 export class AssociarEleitorComponent implements OnInit {
 
-  pessoaFisica: PessoaFisica
+  eleitor: PessoaFisica
 
   associaEleitorForm: FormGroup
 
@@ -19,7 +19,7 @@ export class AssociarEleitorComponent implements OnInit {
     private ref: ChangeDetectorRef, private _notifications: NotificationsService) { }
 
   ngOnInit() {
-    this.pessoaFisica = new PessoaFisica();
+    this.eleitor = new PessoaFisica();
 
     this.createReactiveForms()
 
@@ -41,7 +41,7 @@ export class AssociarEleitorComponent implements OnInit {
   getDigital(impressaoDigital) {
     console.log("IMPRESSÃO DIGITAL CAPTURADA")
     console.log(impressaoDigital)
-    this.pessoaFisica.impressaoDigital = impressaoDigital
+    this.eleitor.impressaoDigital = impressaoDigital
   }
 
   createReactiveForms() {
@@ -52,7 +52,7 @@ export class AssociarEleitorComponent implements OnInit {
   }
 
   criarPessoaFisica() {
-    this.pessoaFisica.contaBlockchain = this.recuperaContaSelecionada()
+    this.eleitor.contaBlockchain = this.recuperaContaSelecionada()
   }
 
   associarEleitor() {
@@ -61,20 +61,23 @@ export class AssociarEleitorComponent implements OnInit {
 
     this.criarPessoaFisica()
 
-    console.log(this.pessoaFisica)
+    if(this.eleitor.impressaoDigital == '' || this.eleitor.impressaoDigital == undefined) {
+      this._notifications.create('Erro', 'A impressão digital é obrigatória.', NotificationType.Error)
+      return;
+    }
 
-    this.web3Service.cadastra(this.pessoaFisica.impressaoDigital, false,
+    this.web3Service.cadastra(this.eleitor.impressaoDigital,
       (data) => {
         console.log(data)
         if(data) {
           this._notifications.create('Sucesso', 'O eleitor foi associado com sucesso', NotificationType.Success)
         } else { 
-          this._notifications.create('Erro', 'Erro ao tentar associar o eleitor', NotificationType.Error)
+          this._notifications.create('Erro', 'Erro ao tentar associar o eleitor.', NotificationType.Error)
         }
     },
     (error) => {
       console.error(error)
-      this._notifications.create('Erro', 'Erro ao tentar associar o eleitor', NotificationType.Error)
+      this._notifications.create('Erro', 'Erro ao tentar associar o eleitor. É possível que essa digital já esteja associada.', NotificationType.Error)
     })
   }
 }

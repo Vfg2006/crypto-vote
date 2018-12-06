@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/operator/map'
@@ -22,7 +22,6 @@ export class VotoService {
         console.log(`${this.API}/candidatos/${numero}`)
 
         return this.http.get(`${this.API}/candidatos/${numero}`)
-            // .map(response => response.json())
             .catch(ErrorHandler.handleError)
     }
 }
