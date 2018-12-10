@@ -4,10 +4,10 @@ export class Candidato {
   nome: string
   partido: string
   cargo: string
-  fotoPath: string
+  fotoPath: any
   vice: {
     nome: string
-    fotoPath: string
+    fotoPath: any
   }
 
   constructor(contaBlockchain: string, numero: number, nome: string, 

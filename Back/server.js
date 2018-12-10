@@ -125,8 +125,8 @@ function associarCandidato(req, res) {
 			cargo: requisicao.pessoaFisica.dadosCandidato.cargo,
 			fotoPath: requisicao.pessoaFisica.dadosCandidato.fotoPath,
 			vice: {
-				nome: requisicao.pessoaFisica.vice.nome,
-				fotoPath: requisicao.pessoaFisica.vice.fotoPath,
+				nome: requisicao.pessoaFisica.dadosCandidato.vice.nome,
+				fotoPath: requisicao.pessoaFisica.dadosCandidato.vice.fotoPath,
 			}
 		}
 	},
@@ -242,10 +242,20 @@ app.post('/api/upload', function (req, res, next) {
 		}
 		console.log(req.file)
 		console.log(__dirname + '/' + req.file.destination + '/' + req.filename)
+		// var filepath = __dirname + '/uploads/' + req.file.filename
+		// console.log(filepath)
 
 		res.json({ filename: req.file.filename })
 	});
 });
+
+app.post('/api/download-image', function (req, res) {
+	let filename = req.body.filename
+
+	filepath = __dirname + '/uploads/' + filename;
+	res.sendFile(filepath);
+});
+
 
 // listen (start app with node server.js) 
 app.listen(8080, "0.0.0.0");

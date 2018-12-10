@@ -3,6 +3,7 @@ import { PessoaFisica } from '../../model/PessoaFisica.model';
 import { Web3Service } from '../../shared/Web3Service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { NotificationsService, NotificationType } from 'angular2-notifications';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'vg-associar-eleitor',
@@ -16,7 +17,8 @@ export class AssociarEleitorComponent implements OnInit {
   associaEleitorForm: FormGroup
 
   constructor(private formbuilder: FormBuilder, private web3Service: Web3Service,
-    private ref: ChangeDetectorRef, private _notifications: NotificationsService) { }
+    private ref: ChangeDetectorRef, private _notifications: NotificationsService,
+    private router: Router) { }
 
   ngOnInit() {
     this.eleitor = new PessoaFisica();
@@ -71,6 +73,7 @@ export class AssociarEleitorComponent implements OnInit {
         console.log(data)
         if(data) {
           this._notifications.create('Sucesso', 'O eleitor foi associado com sucesso', NotificationType.Success)
+          this.router.navigate(['']);
         } else { 
           this._notifications.create('Erro', 'Erro ao tentar associar o eleitor.', NotificationType.Error)
         }

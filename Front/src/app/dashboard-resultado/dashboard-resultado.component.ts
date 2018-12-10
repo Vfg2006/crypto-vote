@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { SafeHtml, SafeUrl, SafeStyle, DomSanitizer } from '@angular/platform-browser';
 import { Web3Service } from '../shared/Web3Service';
 import { Voto } from '../model/voto.model';
 import { CandidatoService } from '../shared/candidato.service';
@@ -39,7 +40,8 @@ export class DashboardResultadoComponent implements OnInit {
     domain: ['#a8385d', '#7aa3e5', '#a27ea8', '#aae3f5', '#adcded', '#a95963', '#8796c0', '#7ed3ed', '#50abcc', '#ad6886']
   }
 
-  constructor(private web3Service: Web3Service, private ref: ChangeDetectorRef, private candidatoService: CandidatoService) {
+  constructor(private web3Service: Web3Service, private ref: ChangeDetectorRef, private candidatoService: CandidatoService,
+    private _sanitizer: DomSanitizer) {
     this.dataChart = new Array();
 
     this.initialData()
@@ -62,29 +64,61 @@ export class DashboardResultadoComponent implements OnInit {
         data.forEach(candidato => {
           console.log(candidato['dadosCandidato'].contaBlockchainCandidato)
 
-          this.candidatos.push({
-            contaBlockchain: candidato['dadosCandidato'].contaBlockchainCandidato,
-            numero: candidato['dadosCandidato'].numero,
-            nome: candidato.nome,
-            partido: candidato['dadosCandidato'].partido,
-            cargo: candidato['dadosCandidato'].cargo,
-            fotoPath: candidato['dadosCandidato'].fotoPath,
-            vice: candidato['dadosCandidato'].vice
-          })
+          this.candidatoService.carregaImagem(candidato['dadosCandidato'].fotoPath).subscribe(
+            data => {
+              var url = window.URL.createObjectURL(data);
+              let fotoPath = this._sanitizer.bypassSecurityTrustResourceUrl(url)
 
-          this.dataChart.push({
-            name: candidato.nome,
-            value: 0
-          })
-          console.log(this.candidatos)
-          this.dataChart = [...this.dataChart]
+              this.candidatos.push({
+                contaBlockchain: candidato['dadosCandidato'].contaBlockchainCandidato,
+                numero: candidato['dadosCandidato'].numero,
+                nome: candidato.nome,
+                partido: candidato['dadosCandidato'].partido,
+                cargo: candidato['dadosCandidato'].cargo,
+                fotoPath: fotoPath,
+                vice: candidato['dadosCandidato'].vice
+              })
 
+              this.dataChart.push({
+                name: candidato.nome,
+                value: 0
+              })
+
+              console.log(this.candidatos)
+              this.dataChart = [...this.dataChart]
+
+            },
+            error => {
+              let msg = "Erro ao baixar o arquivo.";
+              console.error(msg)
+
+              // this.candidatos.push({
+              //   contaBlockchain: candidato['dadosCandidato'].contaBlockchainCandidato,
+              //   numero: candidato['dadosCandidato'].numero,
+              //   nome: candidato.nome,
+              //   partido: candidato['dadosCandidato'].partido,
+              //   cargo: candidato['dadosCandidato'].cargo,
+              //   fotoPath: candidato['dadosCandidato'].fotoPath,
+              //   vice: candidato['dadosCandidato'].vice
+              // })
+
+              // this.dataChart.push({
+              //   name: candidato.nome,
+              //   value: 0
+              // })
+
+              // console.log(this.candidatos)
+              // this.dataChart = [...this.dataChart]
+            }
+          )
         });
 
         this.dataChart.push({
           name: "Branco/Nulo",
           value: 0
         })
+
+
       },
       error => {
         console.log(error)

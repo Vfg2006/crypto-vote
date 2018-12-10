@@ -1,11 +1,12 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/do';
 
 import { ErrorHandler } from '../app.error-handler'
+import { Observable } from "rxjs";
 
 @Injectable()
 export class CandidatoService {
@@ -29,5 +30,14 @@ export class CandidatoService {
         return this.http.get<Object>(`${this.API}/candidatos`)
             .catch(ErrorHandler.handleError)
 
+    }
+
+    carregaImagem(filename: string): Observable<Object> {
+        console.log("UploadService - Download File")
+
+        return this.http.post(`${this.API}/download-image`, { filename: filename }, {
+            responseType: 'blob',
+            headers: new HttpHeaders().append('Content-Type', 'application/json')
+        }).catch(ErrorHandler.handleError)
     }
 }

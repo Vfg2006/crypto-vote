@@ -7,6 +7,7 @@ import { FileSelectDirective, FileUploader } from 'ng2-file-upload'
 import { ConstantesService } from '../../shared/ConstantesService';
 import { CandidatoService } from '../../shared/candidato.service';
 import { NotificationsService, NotificationType } from 'angular2-notifications';
+import { Router } from '@angular/router';
 
 const URL = ConstantesService.serverUrl + "upload"
 
@@ -27,10 +28,22 @@ export class AssociarCandidatoComponent implements OnInit {
   viceFotoPath: any
 
   constructor(private formbuilder: FormBuilder, private web3Service: Web3Service,
-    private ref: ChangeDetectorRef, private candidatoService: CandidatoService, private _notifications: NotificationsService) { }
+    private ref: ChangeDetectorRef, private candidatoService: CandidatoService, 
+    private _notifications: NotificationsService, private router: Router) { }
 
   ngOnInit() {
     this.pessoaFisica = new PessoaFisica();
+    this.pessoaFisica.dadosCandidato = {
+      contaBlockchainCandidato: "",
+      partido: "",
+      numero: 0,
+      cargo: '',
+      fotoPath: '',
+      vice: {
+        nome: '',
+        fotoPath: '',
+          }
+      }
 
     this.createReactiveForms()
 
@@ -75,9 +88,9 @@ export class AssociarCandidatoComponent implements OnInit {
       let filename = JSON.parse(response).filename;
 
       if (identificador == "candidato") {
-        this.pessoaFisica.dadosCandidato.fotoPath = URL + '/' + filename
+        this.pessoaFisica.dadosCandidato.fotoPath = filename
       } else {
-        this.pessoaFisica.dadosCandidato.vice.fotoPath = URL + '/' + filename
+        this.pessoaFisica.dadosCandidato.vice.fotoPath = filename
       }
     }
   }
@@ -90,12 +103,13 @@ export class AssociarCandidatoComponent implements OnInit {
 
     const reader = new FileReader();
     reader.onload = e => identificador === "candidato" ? this.candidatoFotoPath = reader.result : this.viceFotoPath = reader.result
+    
     reader.readAsDataURL(file);
 
     this.uploadFotos(identificador)
   }
 
-  associarEleitor() {
+  associarCandidato() {
 
     let self = this
 
@@ -106,6 +120,7 @@ export class AssociarCandidatoComponent implements OnInit {
         console.log(data)
         if(data) {
           this._notifications.create('Sucesso', 'O candidato foi associado com sucesso', NotificationType.Success)
+          this.router.navigate(['']);
         } else { 
           this._notifications.create('Erro', 'Erro ao tentar associar o candidato', NotificationType.Error)
         }
