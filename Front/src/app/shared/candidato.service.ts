@@ -33,7 +33,7 @@ export class CandidatoService {
     }
 
     carregaImagem(filename: string): Observable<Object> {
-        console.log("UploadService - Download File")
+        console.log("CandidatoService - carregar imagem")
 
         return this.http.post(`${this.API}/download-image`, { filename: filename }, {
             responseType: 'blob',

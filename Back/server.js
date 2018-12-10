@@ -240,10 +240,6 @@ app.post('/api/upload', function (req, res, next) {
 		if (err) {
 			return res.status(501).json({ error: err });
 		}
-		console.log(req.file)
-		console.log(__dirname + '/' + req.file.destination + '/' + req.filename)
-		// var filepath = __dirname + '/uploads/' + req.file.filename
-		// console.log(filepath)
 
 		res.json({ filename: req.file.filename })
 	});

@@ -58,9 +58,6 @@ export class DashboardResultadoComponent implements OnInit {
   initialData() {
     this.candidatoService.getCandidatos().subscribe(
       data => {
-        console.log("Data")
-        console.log(data)
-
         data.forEach(candidato => {
           console.log(candidato['dadosCandidato'].contaBlockchainCandidato)
 
@@ -89,26 +86,8 @@ export class DashboardResultadoComponent implements OnInit {
 
             },
             error => {
-              let msg = "Erro ao baixar o arquivo.";
+              let msg = "Erro ao carregar o arquivo.";
               console.error(msg)
-
-              // this.candidatos.push({
-              //   contaBlockchain: candidato['dadosCandidato'].contaBlockchainCandidato,
-              //   numero: candidato['dadosCandidato'].numero,
-              //   nome: candidato.nome,
-              //   partido: candidato['dadosCandidato'].partido,
-              //   cargo: candidato['dadosCandidato'].cargo,
-              //   fotoPath: candidato['dadosCandidato'].fotoPath,
-              //   vice: candidato['dadosCandidato'].vice
-              // })
-
-              // this.dataChart.push({
-              //   name: candidato.nome,
-              //   value: 0
-              // })
-
-              // console.log(this.candidatos)
-              // this.dataChart = [...this.dataChart]
             }
           )
         });
